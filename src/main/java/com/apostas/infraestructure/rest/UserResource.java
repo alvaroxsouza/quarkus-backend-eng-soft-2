@@ -1,9 +1,8 @@
 package com.apostas.infraestructure.rest;
 
-import com.apostas.application.services.UserService;
-import com.apostas.domain.repository.UserRepository;
-import com.apostas.domain.user.User;
 import com.apostas.application.dto.UserDto;
+import com.apostas.application.services.UserService;
+import com.apostas.domain.user.User;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 
 import javax.inject.Inject;
@@ -19,17 +18,21 @@ import java.util.List;
 public class UserResource {
 
     private UserService userService;
-    private UserRepository userRepository;
 
     @Inject
-    public UserResource(UserService userService, UserRepository userRepository) {
+    public UserResource(UserService userService) {
         this.userService = userService;
-        this.userRepository = userRepository;
     }
 
     @GET
-    public List<User> getUser() {
+    public List<User> getAllUser() {
         return this.userService.getAllUsers();
+    }
+
+    @GET
+    @Path("{id}")
+    public User getUserById(@PathParam("id") Long id) {
+        return this.userService.getUserById(id);
     }
 
     @POST

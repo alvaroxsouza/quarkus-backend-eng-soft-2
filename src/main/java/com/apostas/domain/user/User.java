@@ -4,7 +4,8 @@ import com.apostas.application.dto.UserDto;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import org.hibernate.annotations.CreationTimestamp;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.time.LocalDate;
 
 @Entity

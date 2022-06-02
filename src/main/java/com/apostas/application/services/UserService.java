@@ -36,4 +36,8 @@ public class UserService {
         User user = this.userRepository.get(id);
         this.userRepository.remove(user);
     }
+
+    public User getUserById(Long id) {
+        return this.userRepository.get(id);
+    }
 }
