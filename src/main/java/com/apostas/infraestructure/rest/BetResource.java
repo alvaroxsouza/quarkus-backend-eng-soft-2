@@ -2,9 +2,7 @@ package com.apostas.infraestructure.rest;
 
 import com.apostas.application.dto.BetDto;
 import com.apostas.application.services.BetService;
-import com.apostas.application.services.UserService;
 import com.apostas.domain.aposta.Bet;
-import com.apostas.domain.user.User;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 
 import javax.inject.Inject;

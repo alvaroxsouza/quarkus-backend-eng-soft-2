@@ -1,11 +1,8 @@
 package com.apostas.infraestructure.rest;
 
 import com.apostas.application.dto.GameDto;
-import com.apostas.application.dto.UserDto;
 import com.apostas.application.services.GameService;
-import com.apostas.application.services.UserService;
 import com.apostas.domain.game.rival.Game;
-import com.apostas.domain.user.User;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 
 import javax.inject.Inject;

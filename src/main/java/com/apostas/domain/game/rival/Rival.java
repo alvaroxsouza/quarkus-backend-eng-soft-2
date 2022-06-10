@@ -32,6 +32,10 @@ public class Rival {
         this.paisDeOrigem = rivalDto.getPaisDeOrigem();
     }
 
+    public Rival(Long idRival) {
+        this.id = idRival;
+    }
+
     public Long getId() {
         return id;
     }

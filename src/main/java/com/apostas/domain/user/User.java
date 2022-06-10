@@ -7,7 +7,6 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -34,7 +33,12 @@ public class User {
     private LocalDate updated_at;
 
     @OneToMany
+    @JoinColumn(name = "betlist_id")
     private List<Bet> betList;
+
+    public User(Long id) {
+        this.id = id;
+    }
 
     public Long getId() {
         return id;
@@ -117,7 +121,6 @@ public class User {
         this.nomeDoUsuario = userDto.getNomeDoUsuario();
         this.email = userDto.getEmail();
         this.senha = userDto.getSenha();
-        this.betList = new ArrayList<>();
         this.profile = ProfileUserEnum.valueOf(userDto.getProfile().getValue());
         this.updated_at = LocalDate.now();
     }

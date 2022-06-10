@@ -3,8 +3,6 @@ package com.apostas.application.services;
 import com.apostas.application.dto.BetDto;
 import com.apostas.domain.aposta.Bet;
 import com.apostas.domain.repository.BetRepository;
-import com.apostas.domain.repository.UserRepository;
-import com.apostas.domain.user.User;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;

@@ -5,14 +5,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Objects;
 
 public class GameDto implements Serializable {
     @JsonIgnore
     private Long id;
-    private RivalDto rivalHome;
-    private RivalDto rivalAway;
+    private Long idRivalHome;
+    private Long idRivalAway;
     private ResultEnum resultBet;
     private double oddRivalHome;
     private double oddRivalAway;
@@ -22,15 +21,14 @@ public class GameDto implements Serializable {
     private LocalDate updated_at;
     private LocalDate limiteAposta;
     private LocalDate dataTermino;
-    private List<BetDto> betDtoList;
 
     public GameDto() {
     }
 
-    public GameDto(Long id, RivalDto rivalHome, RivalDto rivalAway, ResultEnum resultBet, double oddRivalHome, double oddRivalAway, double oddTie, String campeonato, LocalDate created_at, LocalDate updated_at, LocalDate limiteAposta, LocalDate dataTermino) {
+    public GameDto(Long id, Long idRivalHome, Long idRivalAway, ResultEnum resultBet, double oddRivalHome, double oddRivalAway, double oddTie, String campeonato, LocalDate created_at, LocalDate updated_at, LocalDate limiteAposta, LocalDate dataTermino) {
         this.id = id;
-        this.rivalHome = rivalHome;
-        this.rivalAway = rivalAway;
+        this.idRivalHome = idRivalHome;
+        this.idRivalAway = idRivalAway;
         this.resultBet = resultBet;
         this.oddRivalHome = oddRivalHome;
         this.oddRivalAway = oddRivalAway;
@@ -50,20 +48,20 @@ public class GameDto implements Serializable {
         this.id = id;
     }
 
-    public RivalDto getRivalHome() {
-        return rivalHome;
+    public Long getIdRivalHome() {
+        return idRivalHome;
     }
 
-    public void setRivalHome(RivalDto rivalHome) {
-        this.rivalHome = rivalHome;
+    public void setIdRivalHome(Long idRivalHome) {
+        this.idRivalHome = idRivalHome;
     }
 
-    public RivalDto getRivalAway() {
-        return rivalAway;
+    public Long getIdRivalAway() {
+        return idRivalAway;
     }
 
-    public void setRivalAway(RivalDto rivalAway) {
-        this.rivalAway = rivalAway;
+    public void setIdRivalAway(Long idRivalAway) {
+        this.idRivalAway = idRivalAway;
     }
 
     public ResultEnum getResultBet() {
@@ -138,22 +136,14 @@ public class GameDto implements Serializable {
         this.dataTermino = dataTermino;
     }
 
-    public List<BetDto> getBetDtoList() {
-        return betDtoList;
-    }
-
-    public void setBetDtoList(List<BetDto> betDtoList) {
-        this.betDtoList = betDtoList;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         GameDto entity = (GameDto) o;
         return Objects.equals(this.id, entity.id) &&
-                Objects.equals(this.rivalHome, entity.rivalHome) &&
-                Objects.equals(this.rivalAway, entity.rivalAway) &&
+                Objects.equals(this.idRivalHome, entity.idRivalHome) &&
+                Objects.equals(this.idRivalAway, entity.idRivalAway) &&
                 Objects.equals(this.resultBet, entity.resultBet) &&
                 Objects.equals(this.oddRivalHome, entity.oddRivalHome) &&
                 Objects.equals(this.oddRivalAway, entity.oddRivalAway) &&
@@ -167,6 +157,6 @@ public class GameDto implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, rivalHome, rivalAway, resultBet, oddRivalHome, oddRivalAway, oddTie, campeonato, created_at, updated_at, limiteAposta, dataTermino);
+        return Objects.hash(id, idRivalHome, idRivalAway, resultBet, oddRivalHome, oddRivalAway, oddTie, campeonato, created_at, updated_at, limiteAposta, dataTermino);
     }
 }

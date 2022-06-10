@@ -11,7 +11,7 @@ public class BetDto implements Serializable {
     @JsonIgnore
     private Long id;
     private List<GameDto> games;
-    private UserDto user;
+    private Long idUser;
     private boolean win;
     private LocalDate created_at = LocalDate.now();
     private LocalDate updated_at;
@@ -20,10 +20,10 @@ public class BetDto implements Serializable {
     public BetDto() {
     }
 
-    public BetDto(Long id, List<GameDto> games, UserDto user, boolean win, LocalDate created_at, LocalDate updated_at, LocalDate terminoAposta) {
+    public BetDto(Long id, List<GameDto> games, Long idUser, boolean win, LocalDate created_at, LocalDate updated_at, LocalDate terminoAposta) {
         this.id = id;
         this.games = games;
-        this.user = user;
+        this.idUser = idUser;
         this.win = win;
         this.created_at = created_at;
         this.updated_at = updated_at;
@@ -46,15 +46,15 @@ public class BetDto implements Serializable {
         this.games = games;
     }
 
-    public UserDto getUser() {
-        return user;
+    public Long getIdUser() {
+        return idUser;
     }
 
-    public void setUser(UserDto user) {
-        this.user = user;
+    public void setIdUser(Long idUser) {
+        this.idUser = idUser;
     }
 
-    public boolean getWin() {
+    public boolean isWin() {
         return win;
     }
 
@@ -93,7 +93,7 @@ public class BetDto implements Serializable {
         BetDto entity = (BetDto) o;
         return Objects.equals(this.id, entity.id) &&
                 Objects.equals(this.games, entity.games) &&
-                Objects.equals(this.user, entity.user) &&
+                Objects.equals(this.idUser, entity.idUser) &&
                 Objects.equals(this.win, entity.win) &&
                 Objects.equals(this.created_at, entity.created_at) &&
                 Objects.equals(this.updated_at, entity.updated_at) &&
@@ -102,6 +102,6 @@ public class BetDto implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, games, user, win, created_at, updated_at, terminoAposta);
+        return Objects.hash(id, games, idUser, win, created_at, updated_at, terminoAposta);
     }
 }

@@ -1,14 +1,12 @@
 package com.apostas.domain.game.rival;
 
 import com.apostas.application.dto.GameDto;
-import com.apostas.application.dto.RivalDto;
 import com.apostas.domain.aposta.Bet;
 import com.apostas.domain.enumutilities.ResultEnum;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "game")
@@ -70,8 +68,8 @@ public class Game {
 
     public Game(GameDto gameDto) {
         this.id = gameDto.getId();
-        this.rivalHome = new Rival(gameDto.getRivalHome());
-        this.rivalAway = new Rival(gameDto.getRivalAway());
+        this.rivalHome = new Rival(gameDto.getIdRivalHome());
+        this.rivalAway = new Rival(gameDto.getIdRivalAway());
         this.resultBet = gameDto.getResultBet();
         this.oddRivalHome = gameDto.getOddRivalHome();
         this.oddRivalAway = gameDto.getOddRivalAway();
@@ -81,7 +79,6 @@ public class Game {
         this.updated_at = gameDto.getUpdated_at();
         this.limiteAposta = gameDto.getLimiteAposta();
         this.dataTermino = gameDto.getDataTermino();
-        this.betList = gameDto.getBetDtoList().stream().map(Bet::new).collect(Collectors.toList());
     }
 
     public Long getId() {
@@ -190,8 +187,8 @@ public class Game {
 
     public void updateGame(GameDto gameDto) {
         this.id = gameDto.getId();
-        this.rivalAway = new Rival(gameDto.getRivalAway());
-        this.rivalHome = new Rival(gameDto.getRivalHome());
+        this.rivalAway = new Rival(gameDto.getIdRivalAway());
+        this.rivalHome = new Rival(gameDto.getIdRivalHome());
         this.resultBet = gameDto.getResultBet();
         this.oddRivalHome = gameDto.getOddRivalHome();
         this.oddRivalAway = gameDto.getOddRivalAway();
@@ -200,6 +197,5 @@ public class Game {
         this.updated_at = LocalDate.now();
         this.limiteAposta = gameDto.getLimiteAposta();
         this.dataTermino = gameDto.getDataTermino();
-        this.betList = gameDto.getBetDtoList().stream().map(Bet::new).collect(Collectors.toList());
     }
 }

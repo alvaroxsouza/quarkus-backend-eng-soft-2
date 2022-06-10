@@ -21,7 +21,7 @@ public class Bet {
     private List<Game> games;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
     private boolean win;
@@ -49,8 +49,8 @@ public class Bet {
     public Bet(BetDto betDto) {
         this.id = betDto.getId();
         this.games = betDto.getGames().stream().map(Game::new).collect(Collectors.toList());
-        this.user = new User(betDto.getUser());
-        this.win = betDto.getWin();
+        this.user = new User(betDto.getIdUser());
+        this.win = betDto.isWin();
         this.created_at = betDto.getCreated_at();
         this.updated_at = betDto.getUpdated_at();
         this.terminoAposta = betDto.getTerminoAposta();
@@ -116,8 +116,9 @@ public class Bet {
     public void updateBet(BetDto betDto) {
         this.id = betDto.getId();
         this.games = betDto.getGames().stream().map(Game::new).collect(Collectors.toList());
-        this.user = new User(betDto.getUser());
-        this.win = betDto.getWin();
+//        this.user = new User(betDto.getUser());
+        this.user = new User(betDto.getId());
+        this.win = betDto.isWin();
         this.created_at = betDto.getCreated_at();
         this.updated_at = betDto.getUpdated_at();
         this.terminoAposta = betDto.getTerminoAposta();
