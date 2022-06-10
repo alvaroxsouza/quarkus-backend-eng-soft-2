@@ -12,18 +12,18 @@ public class UserDto implements Serializable {
     private String nome;
     private String email;
     private String senha;
-    private boolean administrador;
+    private String perfilUsuario;
     private LocalDate created_at = LocalDate.now();
     private LocalDate updated_at;
 
     public UserDto() {
     }
 
-    public UserDto(Long id, String nome, String email, String senha, boolean administrador, LocalDate created_at, LocalDate updated_at) {
+    public UserDto(Long id, String nome, String email, String senha, String perfilUsuario, LocalDate created_at, LocalDate updated_at) {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
-        this.administrador = administrador;
+        this.perfilUsuario = perfilUsuario;
         this.created_at = created_at;
         this.updated_at = updated_at;
     }
@@ -60,12 +60,12 @@ public class UserDto implements Serializable {
         this.senha = senha;
     }
 
-    public boolean getAdministrador() {
-        return administrador;
+    public String getPerfilUsuario() {
+        return perfilUsuario;
     }
 
-    public void setAdministrador(boolean administrador) {
-        this.administrador = administrador;
+    public void setPerfilUsuario(String perfilUsuario) {
+        this.perfilUsuario = perfilUsuario;
     }
 
     public LocalDate getCreated_at() {
@@ -92,13 +92,13 @@ public class UserDto implements Serializable {
         return Objects.equals(this.nome, entity.nome) &&
                 Objects.equals(this.email, entity.email) &&
                 Objects.equals(this.senha, entity.senha) &&
-                Objects.equals(this.administrador, entity.administrador) &&
+                Objects.equals(this.perfilUsuario, entity.perfilUsuario) &&
                 Objects.equals(this.created_at, entity.created_at) &&
                 Objects.equals(this.updated_at, entity.updated_at);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(nome, email, senha, administrador, created_at, updated_at);
+        return Objects.hash(nome, email, senha, perfilUsuario, created_at, updated_at);
     }
 }

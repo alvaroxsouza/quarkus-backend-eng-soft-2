@@ -35,7 +35,7 @@ public class JPAUserRepository implements UserRepository {
 
     @Override
     public boolean exists(User obj) {
-        return this.get(obj.id) != null;
+        return this.get(obj.getId()) != null;
     }
 
     @Override

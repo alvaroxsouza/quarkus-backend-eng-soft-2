@@ -1,16 +1,22 @@
 package com.apostas.domain.user;
 
 import com.apostas.application.dto.UserDto;
-import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import com.apostas.domain.aposta.Bet;
+import com.apostas.domain.enumutilities.ProfileUserEnum;
 import org.hibernate.annotations.CreationTimestamp;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "user_aposta")
-public class User extends PanacheEntity {
+public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    private Long id;
 
     private String nomeDoUsuario;
 
@@ -18,13 +24,25 @@ public class User extends PanacheEntity {
 
     private String senha;
 
-    private boolean administrador;
+    @Enumerated(EnumType.STRING)
+    private ProfileUserEnum profile;
 
     @CreationTimestamp
     private LocalDate created_at = LocalDate.now();
 
     @CreationTimestamp
     private LocalDate updated_at;
+
+    @OneToMany
+    private List<Bet> betList;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public User() {
 
@@ -34,15 +52,15 @@ public class User extends PanacheEntity {
         this.nomeDoUsuario = userDto.getNome();
         this.email = userDto.getEmail();
         this.senha = userDto.getSenha();
-        this.administrador = userDto.getAdministrador();
+        this.profile = ProfileUserEnum.valueOf(userDto.getPerfilUsuario());
         this.updated_at = LocalDate.now();
     }
 
-    public User(String nome, String email, String senha, boolean administrador, LocalDate created_at, LocalDate updated_at) {
+    public User(String nome, String email, String senha, String perfilUsuario, LocalDate created_at, LocalDate updated_at) {
         this.nomeDoUsuario = nome;
         this.email = email;
         this.senha = senha;
-        this.administrador = administrador;
+        this.profile = ProfileUserEnum.valueOf(perfilUsuario);;
         this.created_at = created_at;
         this.updated_at = updated_at;
     }
@@ -71,12 +89,12 @@ public class User extends PanacheEntity {
         this.senha = senha;
     }
 
-    public boolean isAdministrador() {
-        return administrador;
+    public ProfileUserEnum getProfile() {
+        return profile;
     }
 
-    public void setAdministrador(boolean administrador) {
-        this.administrador = administrador;
+    public void setProfile(ProfileUserEnum profile) {
+        this.profile = profile;
     }
 
     public LocalDate getCreated_at() {
@@ -100,7 +118,7 @@ public class User extends PanacheEntity {
         this.nomeDoUsuario = userDto.getNome();
         this.email = userDto.getEmail();
         this.senha = userDto.getSenha();
-        this.administrador = userDto.getAdministrador();
+        this.profile = ProfileUserEnum.valueOf(userDto.getPerfilUsuario());
         this.updated_at = LocalDate.now();
     }
 }

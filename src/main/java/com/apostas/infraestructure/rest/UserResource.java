@@ -25,12 +25,14 @@ public class UserResource {
     }
 
     @GET
+    @Operation(summary = "Obtém todos os usuários da base.")
     public List<User> getAllUser() {
         return this.userService.getAllUsers();
     }
 
     @GET
     @Path("{id}")
+    @Operation(summary = "Obtém um usuário por ID na base.")
     public User getUserById(@PathParam("id") Long id) {
         return this.userService.getUserById(id);
     }
