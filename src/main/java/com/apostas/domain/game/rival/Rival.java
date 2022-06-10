@@ -1,5 +1,7 @@
 package com.apostas.domain.game.rival;
 
+import com.apostas.application.dto.RivalDto;
+
 import javax.persistence.*;
 
 @Entity
@@ -15,16 +17,19 @@ public class Rival {
 
     private String paisDeOrigem;
 
-    private String campeonato;
-
     public Rival() {
     }
 
-    public Rival(Long id, String nomeRival, String paisDeOrigem, String campeonato) {
+    public Rival(Long id, String nomeRival, String paisDeOrigem) {
         this.id = id;
         this.nomeRival = nomeRival;
         this.paisDeOrigem = paisDeOrigem;
-        this.campeonato = campeonato;
+    }
+
+    public Rival(RivalDto rivalDto) {
+        this.id = rivalDto.getId();
+        this.nomeRival = rivalDto.getNomeRival();
+        this.paisDeOrigem = rivalDto.getPaisDeOrigem();
     }
 
     public Long getId() {
@@ -51,11 +56,9 @@ public class Rival {
         this.paisDeOrigem = paisDeOrigem;
     }
 
-    public String getCampeonato() {
-        return campeonato;
-    }
-
-    public void setCampeonato(String campeonato) {
-        this.campeonato = campeonato;
+    public void updateRival(RivalDto rivalDto) {
+        this.id = rivalDto.getId();
+        this.nomeRival = rivalDto.getNomeRival();
+        this.paisDeOrigem = rivalDto.getPaisDeOrigem();
     }
 }

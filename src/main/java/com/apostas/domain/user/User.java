@@ -45,14 +45,13 @@ public class User {
     }
 
     public User() {
-
     }
 
     public User(UserDto userDto) {
-        this.nomeDoUsuario = userDto.getNome();
+        this.nomeDoUsuario = userDto.getNomeDoUsuario();
         this.email = userDto.getEmail();
         this.senha = userDto.getSenha();
-        this.profile = ProfileUserEnum.valueOf(userDto.getPerfilUsuario());
+        this.profile = ProfileUserEnum.valueOf(userDto.getProfile().toString());
         this.updated_at = LocalDate.now();
     }
 
@@ -115,10 +114,11 @@ public class User {
 
     public void updateUser(UserDto userDto) {
         this.id = userDto.getId();
-        this.nomeDoUsuario = userDto.getNome();
+        this.nomeDoUsuario = userDto.getNomeDoUsuario();
         this.email = userDto.getEmail();
         this.senha = userDto.getSenha();
-        this.profile = ProfileUserEnum.valueOf(userDto.getPerfilUsuario());
+        this.betList = new ArrayList<>();
+        this.profile = ProfileUserEnum.valueOf(userDto.getProfile().getValue());
         this.updated_at = LocalDate.now();
     }
 }

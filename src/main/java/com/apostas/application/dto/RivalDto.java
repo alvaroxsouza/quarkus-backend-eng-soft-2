@@ -1,22 +1,23 @@
 package com.apostas.application.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.util.Objects;
 
 public class RivalDto implements Serializable {
+    @JsonIgnore
     private Long id;
     private String nomeRival;
     private String paisDeOrigem;
-    private String campeonato;
 
     public RivalDto() {
     }
 
-    public RivalDto(Long id, String nomeRival, String paisDeOrigem, String campeonato) {
+    public RivalDto(Long id, String nomeRival, String paisDeOrigem) {
         this.id = id;
         this.nomeRival = nomeRival;
         this.paisDeOrigem = paisDeOrigem;
-        this.campeonato = campeonato;
     }
 
     public Long getId() {
@@ -43,14 +44,6 @@ public class RivalDto implements Serializable {
         this.paisDeOrigem = paisDeOrigem;
     }
 
-    public String getCampeonato() {
-        return campeonato;
-    }
-
-    public void setCampeonato(String campeonato) {
-        this.campeonato = campeonato;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -58,12 +51,11 @@ public class RivalDto implements Serializable {
         RivalDto entity = (RivalDto) o;
         return Objects.equals(this.id, entity.id) &&
                 Objects.equals(this.nomeRival, entity.nomeRival) &&
-                Objects.equals(this.paisDeOrigem, entity.paisDeOrigem) &&
-                Objects.equals(this.campeonato, entity.campeonato);
+                Objects.equals(this.paisDeOrigem, entity.paisDeOrigem);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nomeRival, paisDeOrigem, campeonato);
+        return Objects.hash(id, nomeRival, paisDeOrigem);
     }
 }

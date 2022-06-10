@@ -1,9 +1,14 @@
 package com.apostas.domain.game.rival;
 
+import com.apostas.application.dto.GameDto;
+import com.apostas.application.dto.RivalDto;
 import com.apostas.domain.aposta.Bet;
+import com.apostas.domain.enumutilities.ResultEnum;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "game")
@@ -21,18 +26,62 @@ public class Game {
     @JoinColumn(name = "rival_away_id")
     private Rival rivalAway;
 
+    @Enumerated(EnumType.STRING)
+    private ResultEnum resultBet;
+
+    private double oddRivalHome;
+
+    private double oddRivalAway;
+
+    private double oddTie;
+
+    private String campeonato;
+
+    private LocalDate created_at = LocalDate.now();
+
+    private LocalDate updated_at;
+
+    private LocalDate limiteAposta;
+
+    private LocalDate dataTermino;
+
     @ManyToMany
     @JoinColumn(name = "bet_id")
-    private List<Bet> bet;
+    private List<Bet> betList;
 
     public Game() {
     }
 
-    public Game(Long id, Rival rivalHome, Rival rivalAway, List<Bet> bet) {
+    public Game(Long id, Rival rivalHome, Rival rivalAway, ResultEnum resultBet, double oddRivalHome, double oddRivalAway, double oddTie, String campeonato, LocalDate created_at, LocalDate updated_at, LocalDate limiteAposta, LocalDate dataTermino, List<Bet> betList) {
         this.id = id;
         this.rivalHome = rivalHome;
         this.rivalAway = rivalAway;
-        this.bet = bet;
+        this.resultBet = resultBet;
+        this.oddRivalHome = oddRivalHome;
+        this.oddRivalAway = oddRivalAway;
+        this.oddTie = oddTie;
+        this.campeonato = campeonato;
+        this.created_at = created_at;
+        this.updated_at = updated_at;
+        this.limiteAposta = limiteAposta;
+        this.dataTermino = dataTermino;
+        this.betList = betList;
+    }
+
+    public Game(GameDto gameDto) {
+        this.id = gameDto.getId();
+        this.rivalHome = new Rival(gameDto.getRivalHome());
+        this.rivalAway = new Rival(gameDto.getRivalAway());
+        this.resultBet = gameDto.getResultBet();
+        this.oddRivalHome = gameDto.getOddRivalHome();
+        this.oddRivalAway = gameDto.getOddRivalAway();
+        this.oddTie = gameDto.getOddTie();
+        this.campeonato = gameDto.getCampeonato();
+        this.created_at = gameDto.getCreated_at();
+        this.updated_at = gameDto.getUpdated_at();
+        this.limiteAposta = gameDto.getLimiteAposta();
+        this.dataTermino = gameDto.getDataTermino();
+        this.betList = gameDto.getBetDtoList().stream().map(Bet::new).collect(Collectors.toList());
     }
 
     public Long getId() {
@@ -59,11 +108,98 @@ public class Game {
         this.rivalAway = rivalAway;
     }
 
-    public List<Bet> getBet() {
-        return bet;
+    public ResultEnum getResultBet() {
+        return resultBet;
     }
 
-    public void setBet(List<Bet> bet) {
-        this.bet = bet;
+    public void setResultBet(ResultEnum resultBet) {
+        this.resultBet = resultBet;
+    }
+
+    public double getOddRivalHome() {
+        return oddRivalHome;
+    }
+
+    public void setOddRivalHome(double oddRivalHome) {
+        this.oddRivalHome = oddRivalHome;
+    }
+
+    public double getOddRivalAway() {
+        return oddRivalAway;
+    }
+
+    public void setOddRivalAway(double oddRivalAway) {
+        this.oddRivalAway = oddRivalAway;
+    }
+
+    public double getOddTie() {
+        return oddTie;
+    }
+
+    public void setOddTie(double oddTie) {
+        this.oddTie = oddTie;
+    }
+
+    public String getCampeonato() {
+        return campeonato;
+    }
+
+    public void setCampeonato(String campeonato) {
+        this.campeonato = campeonato;
+    }
+
+    public LocalDate getCreated_at() {
+        return created_at;
+    }
+
+    public void setCreated_at(LocalDate created_at) {
+        this.created_at = created_at;
+    }
+
+    public LocalDate getUpdated_at() {
+        return updated_at;
+    }
+
+    public void setUpdated_at(LocalDate updated_at) {
+        this.updated_at = updated_at;
+    }
+
+    public LocalDate getLimiteAposta() {
+        return limiteAposta;
+    }
+
+    public void setLimiteAposta(LocalDate limiteAposta) {
+        this.limiteAposta = limiteAposta;
+    }
+
+    public LocalDate getDataTermino() {
+        return dataTermino;
+    }
+
+    public void setDataTermino(LocalDate dataTermino) {
+        this.dataTermino = dataTermino;
+    }
+
+    public List<Bet> getBetList() {
+        return betList;
+    }
+
+    public void setBetList(List<Bet> betList) {
+        this.betList = betList;
+    }
+
+    public void updateGame(GameDto gameDto) {
+        this.id = gameDto.getId();
+        this.rivalAway = new Rival(gameDto.getRivalAway());
+        this.rivalHome = new Rival(gameDto.getRivalHome());
+        this.resultBet = gameDto.getResultBet();
+        this.oddRivalHome = gameDto.getOddRivalHome();
+        this.oddRivalAway = gameDto.getOddRivalAway();
+        this.oddTie = gameDto.getOddTie();
+        this.campeonato = gameDto.getCampeonato();
+        this.updated_at = LocalDate.now();
+        this.limiteAposta = gameDto.getLimiteAposta();
+        this.dataTermino = gameDto.getDataTermino();
+        this.betList = gameDto.getBetDtoList().stream().map(Bet::new).collect(Collectors.toList());
     }
 }

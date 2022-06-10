@@ -1,31 +1,36 @@
 package com.apostas.application.dto;
 
+import com.apostas.domain.enumutilities.ProfileUserEnum;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
 public class UserDto implements Serializable {
     @JsonIgnore
     private Long id;
-    private String nome;
+    private String nomeDoUsuario;
     private String email;
     private String senha;
-    private String perfilUsuario;
+    private ProfileUserEnum profile;
     private LocalDate created_at = LocalDate.now();
     private LocalDate updated_at;
+    private List<BetDto> betList;
 
     public UserDto() {
     }
 
-    public UserDto(Long id, String nome, String email, String senha, String perfilUsuario, LocalDate created_at, LocalDate updated_at) {
-        this.nome = nome;
+    public UserDto(Long id, String nomeDoUsuario, String email, String senha, ProfileUserEnum profile, LocalDate created_at, LocalDate updated_at, List<BetDto> betList) {
+        this.id = id;
+        this.nomeDoUsuario = nomeDoUsuario;
         this.email = email;
         this.senha = senha;
-        this.perfilUsuario = perfilUsuario;
+        this.profile = profile;
         this.created_at = created_at;
         this.updated_at = updated_at;
+        this.betList = betList;
     }
 
     public Long getId() {
@@ -36,12 +41,12 @@ public class UserDto implements Serializable {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getNomeDoUsuario() {
+        return nomeDoUsuario;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setNomeDoUsuario(String nomeDoUsuario) {
+        this.nomeDoUsuario = nomeDoUsuario;
     }
 
     public String getEmail() {
@@ -60,12 +65,12 @@ public class UserDto implements Serializable {
         this.senha = senha;
     }
 
-    public String getPerfilUsuario() {
-        return perfilUsuario;
+    public ProfileUserEnum getProfile() {
+        return profile;
     }
 
-    public void setPerfilUsuario(String perfilUsuario) {
-        this.perfilUsuario = perfilUsuario;
+    public void setProfile(ProfileUserEnum profile) {
+        this.profile = profile;
     }
 
     public LocalDate getCreated_at() {
@@ -84,21 +89,31 @@ public class UserDto implements Serializable {
         this.updated_at = updated_at;
     }
 
+    public List<BetDto> getBetList() {
+        return betList;
+    }
+
+    public void setBetList(List<BetDto> betList) {
+        this.betList = betList;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserDto entity = (UserDto) o;
-        return Objects.equals(this.nome, entity.nome) &&
+        return Objects.equals(this.id, entity.id) &&
+                Objects.equals(this.nomeDoUsuario, entity.nomeDoUsuario) &&
                 Objects.equals(this.email, entity.email) &&
                 Objects.equals(this.senha, entity.senha) &&
-                Objects.equals(this.perfilUsuario, entity.perfilUsuario) &&
+                Objects.equals(this.profile, entity.profile) &&
                 Objects.equals(this.created_at, entity.created_at) &&
-                Objects.equals(this.updated_at, entity.updated_at);
+                Objects.equals(this.updated_at, entity.updated_at) &&
+                Objects.equals(this.betList, entity.betList);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(nome, email, senha, perfilUsuario, created_at, updated_at);
+        return Objects.hash(id, nomeDoUsuario, email, senha, profile, created_at, updated_at, betList);
     }
 }
