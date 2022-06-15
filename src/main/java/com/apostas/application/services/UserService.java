@@ -1,12 +1,14 @@
 package com.apostas.application.services;
 
 import com.apostas.application.dto.UserDto;
+import com.apostas.application.representation.UserRepresentation;
 import com.apostas.domain.repository.UserRepository;
 import com.apostas.domain.user.User;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Singleton
 public class UserService {
@@ -19,8 +21,8 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public List<User> getAllUsers() {
-        return this.userRepository.all();
+    public List<UserRepresentation> getAllUsers() {
+        return this.userRepository.all().stream().map(UserRepresentation::new).collect(Collectors.toList());
     }
 
     public void addUser(User user) {
@@ -37,7 +39,8 @@ public class UserService {
         this.userRepository.remove(user);
     }
 
-    public User getUserById(Long id) {
-        return this.userRepository.get(id);
+    public UserRepresentation getUserById(Long id) {
+        User user = this.userRepository.get(id);
+        return new UserRepresentation(user);
     }
 }

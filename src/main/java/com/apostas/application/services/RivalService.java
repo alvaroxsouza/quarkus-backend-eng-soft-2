@@ -1,12 +1,14 @@
 package com.apostas.application.services;
 
 import com.apostas.application.dto.RivalDto;
+import com.apostas.application.representation.RivalRepresentation;
 import com.apostas.domain.game.rival.Rival;
 import com.apostas.domain.repository.RivalRepository;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Singleton
 public class RivalService {
@@ -19,8 +21,8 @@ public class RivalService {
         this.rivalRepository = rivalRepository;
     }
 
-    public List<Rival> getAllRivals() {
-        return this.rivalRepository.all();
+    public List<RivalRepresentation> getAllRivals() {
+        return this.rivalRepository.all().stream().map(RivalRepresentation::new).collect(Collectors.toList());
     }
 
     public void addRival(Rival rival) {
@@ -37,7 +39,8 @@ public class RivalService {
         this.rivalRepository.remove(rival);
     }
 
-    public Rival getRivalById(Long id) {
-        return this.rivalRepository.get(id);
+    public RivalRepresentation getRivalById(Long id) {
+        Rival rival = this.rivalRepository.get(id);
+        return new RivalRepresentation(rival);
     }
 }

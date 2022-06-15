@@ -6,6 +6,7 @@ import com.apostas.domain.enumutilities.ResultEnum;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -17,11 +18,11 @@ public class Game {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "rival_home_id")
+    @JoinColumn(name = "rival_home_id", referencedColumnName = "id")
     private Rival rivalHome;
 
     @ManyToOne
-    @JoinColumn(name = "rival_away_id")
+    @JoinColumn(name = "rival_away_id", referencedColumnName = "id")
     private Rival rivalAway;
 
     @Enumerated(EnumType.STRING)
@@ -43,14 +44,17 @@ public class Game {
 
     private LocalDate dataTermino;
 
-    @ManyToMany
-    @JoinColumn(name = "bet_id")
-    private List<Bet> betList;
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @JoinTable(name = "game_betList",
+            joinColumns = @JoinColumn(name = "game_id"),
+            inverseJoinColumns = @JoinColumn(name = "betlist_id"))
+    private List<Bet> bets;
+
 
     public Game() {
     }
 
-    public Game(Long id, Rival rivalHome, Rival rivalAway, ResultEnum resultBet, double oddRivalHome, double oddRivalAway, double oddTie, String campeonato, LocalDate created_at, LocalDate updated_at, LocalDate limiteAposta, LocalDate dataTermino, List<Bet> betList) {
+    public Game(Long id, Rival rivalHome, Rival rivalAway, ResultEnum resultBet, double oddRivalHome, double oddRivalAway, double oddTie, String campeonato, LocalDate created_at, LocalDate updated_at, LocalDate limiteAposta, LocalDate dataTermino) {
         this.id = id;
         this.rivalHome = rivalHome;
         this.rivalAway = rivalAway;
@@ -63,7 +67,6 @@ public class Game {
         this.updated_at = updated_at;
         this.limiteAposta = limiteAposta;
         this.dataTermino = dataTermino;
-        this.betList = betList;
     }
 
     public Game(GameDto gameDto) {
@@ -79,6 +82,10 @@ public class Game {
         this.updated_at = gameDto.getUpdated_at();
         this.limiteAposta = gameDto.getLimiteAposta();
         this.dataTermino = gameDto.getDataTermino();
+    }
+
+    public Game(Long idGame) {
+        this.id = idGame;
     }
 
     public Long getId() {
@@ -115,6 +122,14 @@ public class Game {
 
     public double getOddRivalHome() {
         return oddRivalHome;
+    }
+
+    public List<Bet> getBets() {
+        return bets;
+    }
+
+    public void setBets(List<Bet> bets) {
+        this.bets = bets;
     }
 
     public void setOddRivalHome(double oddRivalHome) {
@@ -175,14 +190,6 @@ public class Game {
 
     public void setDataTermino(LocalDate dataTermino) {
         this.dataTermino = dataTermino;
-    }
-
-    public List<Bet> getBetList() {
-        return betList;
-    }
-
-    public void setBetList(List<Bet> betList) {
-        this.betList = betList;
     }
 
     public void updateGame(GameDto gameDto) {

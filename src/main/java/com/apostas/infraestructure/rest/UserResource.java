@@ -1,6 +1,7 @@
 package com.apostas.infraestructure.rest;
 
 import com.apostas.application.dto.UserDto;
+import com.apostas.application.representation.UserRepresentation;
 import com.apostas.application.services.UserService;
 import com.apostas.domain.user.User;
 import org.eclipse.microprofile.openapi.annotations.Operation;
@@ -26,14 +27,14 @@ public class UserResource {
 
     @GET
     @Operation(summary = "Obtém todos os usuários da base.")
-    public List<User> getAllUser() {
+    public List<UserRepresentation> getAllUser() {
         return this.userService.getAllUsers();
     }
 
     @GET
     @Path("{id}")
     @Operation(summary = "Obtém um usuário por ID na base.")
-    public User getUserById(@PathParam("id") Long id) {
+    public UserRepresentation getUserById(@PathParam("id") Long id) {
         return this.userService.getUserById(id);
     }
 

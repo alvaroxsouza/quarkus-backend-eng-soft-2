@@ -1,6 +1,7 @@
 package com.apostas.infraestructure.rest;
 
 import com.apostas.application.dto.RivalDto;
+import com.apostas.application.representation.RivalRepresentation;
 import com.apostas.application.services.RivalService;
 import com.apostas.domain.game.rival.Rival;
 import org.eclipse.microprofile.openapi.annotations.Operation;
@@ -26,14 +27,14 @@ public class RivalResource {
 
     @GET
     @Operation(summary = "Obtém todos os usuários da base.")
-    public List<Rival> getAllRivals() {
+    public List<RivalRepresentation> getAllRivals() {
         return this.rivalService.getAllRivals();
     }
 
     @GET
     @Path("{id}")
     @Operation(summary = "Obtém um usuário por ID na base.")
-    public Rival getRivalById(@PathParam("id") Long id) {
+    public RivalRepresentation getRivalById(@PathParam("id") Long id) {
         return this.rivalService.getRivalById(id);
     }
 

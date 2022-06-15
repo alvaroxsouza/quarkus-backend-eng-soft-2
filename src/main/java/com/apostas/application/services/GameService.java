@@ -1,12 +1,14 @@
 package com.apostas.application.services;
 
 import com.apostas.application.dto.GameDto;
+import com.apostas.application.representation.GameRepresentation;
 import com.apostas.domain.game.rival.Game;
 import com.apostas.domain.repository.GameRepository;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Singleton
 public class GameService {
@@ -19,8 +21,8 @@ public class GameService {
         this.gameRepository = gameRepository;
     }
 
-    public List<Game> getAllGames() {
-        return this.gameRepository.all();
+    public List<GameRepresentation> getAllGames() {
+        return this.gameRepository.all().stream().map(GameRepresentation::new).collect(Collectors.toList());
     }
 
     public void addGame(Game game) {
@@ -37,7 +39,8 @@ public class GameService {
         this.gameRepository.remove(game);
     }
 
-    public Game getGameById(Long id) {
-        return this.gameRepository.get(id);
+    public GameRepresentation getGameById(Long id) {
+        Game game = this.gameRepository.get(id);
+        return new GameRepresentation(game);
     }
 }

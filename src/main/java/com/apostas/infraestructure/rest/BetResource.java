@@ -1,6 +1,7 @@
 package com.apostas.infraestructure.rest;
 
 import com.apostas.application.dto.BetDto;
+import com.apostas.application.representation.BetRepresentation;
 import com.apostas.application.services.BetService;
 import com.apostas.domain.aposta.Bet;
 import org.eclipse.microprofile.openapi.annotations.Operation;
@@ -26,14 +27,14 @@ public class BetResource {
 
     @GET
     @Operation(summary = "Obtém todos os usuários da base.")
-    public List<Bet> getAllBet() {
+    public List<BetRepresentation> getAllBet() {
         return this.betService.getAllBets();
     }
 
     @GET
     @Path("{id}")
     @Operation(summary = "Obtém um usuário por ID na base.")
-    public Bet getBetById(@PathParam("id") Long id) {
+    public BetRepresentation getBetById(@PathParam("id") Long id) {
         return this.betService.getBetById(id);
     }
 

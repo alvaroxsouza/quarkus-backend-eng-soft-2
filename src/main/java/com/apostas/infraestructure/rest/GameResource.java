@@ -1,6 +1,7 @@
 package com.apostas.infraestructure.rest;
 
 import com.apostas.application.dto.GameDto;
+import com.apostas.application.representation.GameRepresentation;
 import com.apostas.application.services.GameService;
 import com.apostas.domain.game.rival.Game;
 import org.eclipse.microprofile.openapi.annotations.Operation;
@@ -26,14 +27,14 @@ public class GameResource {
 
     @GET
     @Operation(summary = "Obtém todos os usuários da base.")
-    public List<Game> getAllGames() {
+    public List<GameRepresentation> getAllGames() {
         return this.gameService.getAllGames();
     }
 
     @GET
     @Path("{id}")
     @Operation(summary = "Obtém um usuário por ID na base.")
-    public Game getGameById(@PathParam("id") Long id) {
+    public GameRepresentation getGameById(@PathParam("id") Long id) {
         return this.gameService.getGameById(id);
     }
 

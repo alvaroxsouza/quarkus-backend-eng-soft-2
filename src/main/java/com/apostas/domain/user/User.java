@@ -7,6 +7,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -16,25 +17,20 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
-
     private String nomeDoUsuario;
-
     private String email;
-
     private String senha;
 
     @Enumerated(EnumType.STRING)
     private ProfileUserEnum profile;
-
     @CreationTimestamp
     private LocalDate created_at = LocalDate.now();
-
     @CreationTimestamp
     private LocalDate updated_at;
 
-    @OneToMany
-    @JoinColumn(name = "betlist_id")
-    private List<Bet> betList;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "user_id")
+    private List<Bet> betList = new ArrayList<>();
 
     public User(Long id) {
         this.id = id;
@@ -68,12 +64,21 @@ public class User {
         this.updated_at = updated_at;
     }
 
+    public void updateUser(UserDto userDto) {
+        this.id = userDto.getId();
+        this.nomeDoUsuario = userDto.getNomeDoUsuario();
+        this.email = userDto.getEmail();
+        this.senha = userDto.getSenha();
+        this.profile = ProfileUserEnum.valueOf(userDto.getProfile().getValue());
+        this.updated_at = LocalDate.now();
+    }
+
     public String getNomeDoUsuario() {
         return nomeDoUsuario;
     }
 
-    public void setNomeDoUsuario(String nome) {
-        this.nomeDoUsuario = nome;
+    public void setNomeDoUsuario(String nomeDoUsuario) {
+        this.nomeDoUsuario = nomeDoUsuario;
     }
 
     public String getEmail() {
@@ -116,12 +121,14 @@ public class User {
         this.updated_at = updated_at;
     }
 
-    public void updateUser(UserDto userDto) {
-        this.id = userDto.getId();
-        this.nomeDoUsuario = userDto.getNomeDoUsuario();
-        this.email = userDto.getEmail();
-        this.senha = userDto.getSenha();
-        this.profile = ProfileUserEnum.valueOf(userDto.getProfile().getValue());
-        this.updated_at = LocalDate.now();
+    public List<Bet> getBetList() {
+        if(this.betList == null) {
+            this.betList = new ArrayList<>();
+        }
+        return betList;
+    }
+
+    public void setBetList(List<Bet> betList) {
+        this.betList = betList;
     }
 }

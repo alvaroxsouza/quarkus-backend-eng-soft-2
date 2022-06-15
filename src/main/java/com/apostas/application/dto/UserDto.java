@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Objects;
 
 public class UserDto implements Serializable {
@@ -17,12 +16,11 @@ public class UserDto implements Serializable {
     private ProfileUserEnum profile;
     private LocalDate created_at = LocalDate.now();
     private LocalDate updated_at;
-    private List<BetDto> betList;
 
     public UserDto() {
     }
 
-    public UserDto(Long id, String nomeDoUsuario, String email, String senha, ProfileUserEnum profile, LocalDate created_at, LocalDate updated_at, List<BetDto> betList) {
+    public UserDto(Long id, String nomeDoUsuario, String email, String senha, ProfileUserEnum profile, LocalDate created_at, LocalDate updated_at) {
         this.id = id;
         this.nomeDoUsuario = nomeDoUsuario;
         this.email = email;
@@ -30,7 +28,6 @@ public class UserDto implements Serializable {
         this.profile = profile;
         this.created_at = created_at;
         this.updated_at = updated_at;
-        this.betList = betList;
     }
 
     public Long getId() {
@@ -89,14 +86,6 @@ public class UserDto implements Serializable {
         this.updated_at = updated_at;
     }
 
-    public List<BetDto> getBetList() {
-        return betList;
-    }
-
-    public void setBetList(List<BetDto> betList) {
-        this.betList = betList;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -108,12 +97,11 @@ public class UserDto implements Serializable {
                 Objects.equals(this.senha, entity.senha) &&
                 Objects.equals(this.profile, entity.profile) &&
                 Objects.equals(this.created_at, entity.created_at) &&
-                Objects.equals(this.updated_at, entity.updated_at) &&
-                Objects.equals(this.betList, entity.betList);
+                Objects.equals(this.updated_at, entity.updated_at);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nomeDoUsuario, email, senha, profile, created_at, updated_at, betList);
+        return Objects.hash(id, nomeDoUsuario, email, senha, profile, created_at, updated_at);
     }
 }

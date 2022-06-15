@@ -6,6 +6,7 @@ import com.apostas.domain.user.User;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,11 +18,8 @@ public class Bet {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @OneToMany
-    private List<Game> games;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "user_id")
     private User user;
 
     private boolean win;
@@ -31,6 +29,12 @@ public class Bet {
     private LocalDate updated_at;
 
     private LocalDate terminoAposta;
+
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @JoinTable(name = "game_betlist",
+            joinColumns = @JoinColumn(name = "betlist_id"),
+            inverseJoinColumns = @JoinColumn(name = "game_id"))
+    private List<Game> games;
 
     public Bet() {
 
@@ -48,14 +52,24 @@ public class Bet {
 
     public Bet(BetDto betDto) {
         this.id = betDto.getId();
-        this.games = betDto.getGames().stream().map(Game::new).collect(Collectors.toList());
-        this.user = new User(betDto.getIdUser());
         this.win = betDto.isWin();
+        this.user = new User(betDto.getIdUser());
+        this.games = betDto.getGames().stream().map(Game::new).collect(Collectors.toList());
         this.created_at = betDto.getCreated_at();
         this.updated_at = betDto.getUpdated_at();
         this.terminoAposta = betDto.getTerminoAposta();
     }
 
+    public void updateBet(BetDto betDto) {
+        this.id = betDto.getId();
+        this.games = betDto.getGames().stream().map(Game::new).collect(Collectors.toList());
+        this.user = new User(betDto.getIdUser());
+        this.user = new User(betDto.getId());
+        this.win = betDto.isWin();
+        this.created_at = betDto.getCreated_at();
+        this.updated_at = betDto.getUpdated_at();
+        this.terminoAposta = betDto.getTerminoAposta();
+    }
 
     public Long getId() {
         return id;
@@ -63,14 +77,6 @@ public class Bet {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public List<Game> getGames() {
-        return games;
-    }
-
-    public void setGames(List<Game> games) {
-        this.games = games;
     }
 
     public User getUser() {
@@ -113,14 +119,14 @@ public class Bet {
         this.terminoAposta = terminoAposta;
     }
 
-    public void updateBet(BetDto betDto) {
-        this.id = betDto.getId();
-        this.games = betDto.getGames().stream().map(Game::new).collect(Collectors.toList());
-//        this.user = new User(betDto.getUser());
-        this.user = new User(betDto.getId());
-        this.win = betDto.isWin();
-        this.created_at = betDto.getCreated_at();
-        this.updated_at = betDto.getUpdated_at();
-        this.terminoAposta = betDto.getTerminoAposta();
+    public List<Game> getGames() {
+        if(this.games == null) {
+            this.games = new ArrayList<>();
+        }
+        return games;
+    }
+
+    public void setGames(List<Game> games) {
+        this.games = games;
     }
 }
