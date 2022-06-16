@@ -6,7 +6,6 @@ import com.apostas.domain.enumutilities.ResultEnum;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
