@@ -3,7 +3,6 @@ package com.apostas.application.money;
 import javax.money.CurrencyUnit;
 import javax.money.Monetary;
 import javax.money.MonetaryAmount;
-import javax.money.NumberValue;
 import javax.money.format.MonetaryAmountFormat;
 import javax.money.format.MonetaryFormats;
 import java.math.BigDecimal;
@@ -49,7 +48,6 @@ public class MoneyOperation {
 
     public static String mulMoney(String moneyActual, double moneyMult) {
         BigDecimal moneyActualConverter = new BigDecimal(moneyActual);
-        BigDecimal moneyAddConverter = new BigDecimal(moneyMult);
 
         MonetaryAmount amountActualBrl = Monetary.getDefaultAmountFactory().setCurrency(currencyUnit).setNumber(moneyActualConverter).create();
 
@@ -60,7 +58,6 @@ public class MoneyOperation {
 
     public static String divideMoney(String moneyActual, double moneyDiv) {
         BigDecimal moneyActualConverter = new BigDecimal(moneyActual);
-        BigDecimal moneyAddConverter = new BigDecimal(moneyDiv);
 
         MonetaryAmount amountActualBrl = Monetary.getDefaultAmountFactory().setCurrency(currencyUnit).setNumber(moneyActualConverter).create();
 

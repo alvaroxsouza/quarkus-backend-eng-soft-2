@@ -7,9 +7,9 @@ import com.apostas.infraestructure.messages.Messages;
 import io.quarkus.test.Mock;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
+
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 
 public class ValidationTest {
 
