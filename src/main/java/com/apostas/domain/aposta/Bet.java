@@ -24,6 +24,8 @@ public class Bet {
 
     private boolean win;
 
+    private String moneyBet;
+
     private LocalDate created_at = LocalDate.now();
 
     private LocalDate updated_at;

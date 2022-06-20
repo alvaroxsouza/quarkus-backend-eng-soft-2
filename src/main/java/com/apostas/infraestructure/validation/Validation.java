@@ -1,5 +1,6 @@
 package com.apostas.infraestructure.validation;
 
+import com.apostas.infraestructure.exception.BetBussinessExceptions;
 import com.apostas.infraestructure.exception.BetExceptions;
 import com.apostas.infraestructure.messages.Messages;
 import org.apache.commons.lang3.Validate;
@@ -12,9 +13,9 @@ public class Validation {
 
     public static void notNull(Object obj, String fieldName) throws BetExceptions {
         try {
-            Validate.notNull(obj, Messages.get("Null", fieldName));
+            Validate.notNull(obj, Messages.get("nullvalue", fieldName));
         } catch (Exception e) {
-            throw new BetExceptions(e.getMessage());
+            throw new BetBussinessExceptions(e.getMessage());
         }
     }
 
@@ -22,7 +23,7 @@ public class Validation {
         try {
             Validate.notEmpty(array, Messages.get("Empty", fieldName));
         } catch (Exception e) {
-            throw new BetExceptions(e.getMessage());
+            throw new BetBussinessExceptions(e.getMessage());
         }
     }
 
@@ -30,7 +31,7 @@ public class Validation {
         try {
             Validate.notBlank(text, Messages.get("Empty", fieldName));
         } catch (Exception e) {
-            throw new BetExceptions(e.getMessage());
+            throw new BetBussinessExceptions(e.getMessage());
         }
     }
 
@@ -38,7 +39,7 @@ public class Validation {
         try {
             Validate.inclusiveBetween(min, max, string.length(), Messages.get("Size", fieldName, min, max));
         } catch (Exception e) {
-            throw new BetExceptions(e.getMessage());
+            throw new BetBussinessExceptions(e.getMessage());
         }
     }
 
@@ -48,7 +49,7 @@ public class Validation {
                     "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$",
                     Messages.get("Email"));
         } catch (Exception e) {
-            throw new BetExceptions(e.getMessage());
+            throw new BetBussinessExceptions(e.getMessage());
         }
     }
 
@@ -56,7 +57,7 @@ public class Validation {
         try {
             Validate.matchesPattern(text, "[_A-Za-z0-9]+", Messages.get("Caracter-especial", fieldName));
         } catch (Exception e) {
-            throw new BetExceptions(e.getMessage());
+            throw new BetBussinessExceptions(e.getMessage());
         }
     }
 }
