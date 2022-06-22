@@ -17,17 +17,10 @@ public class UserRepresentation implements Serializable {
     private LocalDate created_at;
     private LocalDate updated_at;
     private ProfileUserEnum profile;
+    private String dinheiroDisponivel;
     private List<BetRepresentation> betList;
 
     public UserRepresentation(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
         this.id = id;
     }
 
@@ -39,17 +32,39 @@ public class UserRepresentation implements Serializable {
         this.nomeDoUsuario = user.getNomeDoUsuario();
         this.email = user.getEmail();
         this.senha = user.getSenha();
+        this.dinheiroDisponivel = user.getDinheiroDisponivel();
         this.betList = user.getBetList().stream().map(BetRepresentation::new).collect(Collectors.toList());
         this.profile = user.getProfile();
         this.created_at = user.getCreated_at();
         this.updated_at = user.getUpdated_at();
     }
 
-    public UserRepresentation(String nome, String email, String senha, String perfilUsuario) {
-        this.nomeDoUsuario = nome;
+    public UserRepresentation(Long id, String nomeDoUsuario, String email, String senha, LocalDate created_at, LocalDate updated_at, ProfileUserEnum profile, String dinheiroDisponivel, List<BetRepresentation> betList) {
+        this.id = id;
+        this.nomeDoUsuario = nomeDoUsuario;
         this.email = email;
         this.senha = senha;
-        this.profile = ProfileUserEnum.valueOf(perfilUsuario);
+        this.created_at = created_at;
+        this.updated_at = updated_at;
+        this.profile = profile;
+        this.dinheiroDisponivel = dinheiroDisponivel;
+        this.betList = betList;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getDinheiroDisponivel() {
+        return dinheiroDisponivel;
+    }
+
+    public void setDinheiroDisponivel(String dinheiroDisponivel) {
+        this.dinheiroDisponivel = dinheiroDisponivel;
     }
 
     public String getNomeDoUsuario() {
@@ -74,6 +89,22 @@ public class UserRepresentation implements Serializable {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public LocalDate getCreated_at() {
+        return created_at;
+    }
+
+    public void setCreated_at(LocalDate created_at) {
+        this.created_at = created_at;
+    }
+
+    public LocalDate getUpdated_at() {
+        return updated_at;
+    }
+
+    public void setUpdated_at(LocalDate updated_at) {
+        this.updated_at = updated_at;
     }
 
     public ProfileUserEnum getProfile() {

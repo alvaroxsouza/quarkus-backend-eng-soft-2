@@ -1,7 +1,7 @@
 package com.apostas.application.representation;
 
 import com.apostas.domain.enumutilities.ResultEnum;
-import com.apostas.domain.game.rival.Game;
+import com.apostas.domain.game.Game;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -9,11 +9,11 @@ import java.time.LocalDate;
 public class GameRepresentation implements Serializable {
 
     private Long id;
-    private RivalRepresentation rivalHome;
-    private RivalRepresentation rivalAway;
+    private TeamRepresentation teamHome;
+    private TeamRepresentation teamAway;
     private ResultEnum resultBet;
-    private double oddRivalHome;
-    private double oddRivalAway;
+    private double oddTeamHome;
+    private double oddTeamAway;
     private double oddTie;
     private String campeonato;
     private LocalDate created_at;
@@ -26,11 +26,11 @@ public class GameRepresentation implements Serializable {
 
     public GameRepresentation(Game game) {
         this.id = game.getId();
-        this.rivalHome = new RivalRepresentation(game.getRivalHome());
-        this.rivalAway = new RivalRepresentation(game.getRivalAway());
+        this.teamHome = new TeamRepresentation(game.getTeamHome());
+        this.teamAway = new TeamRepresentation(game.getTeamAway());
         this.resultBet = game.getResultBet();
-        this.oddRivalHome = game.getOddRivalHome();
-        this.oddRivalAway = game.getOddRivalAway();
+        this.oddTeamHome = game.getOddTeamHome();
+        this.oddTeamAway = game.getOddTeamAway();
         this.oddTie = game.getOddTie();
         this.campeonato = game.getCampeonato();
         this.created_at = game.getCreated_at();
@@ -47,20 +47,20 @@ public class GameRepresentation implements Serializable {
         this.id = id;
     }
 
-    public RivalRepresentation getRivalHome() {
-        return rivalHome;
+    public TeamRepresentation getTeamHome() {
+        return teamHome;
     }
 
-    public void setRivalHome(RivalRepresentation rivalHome) {
-        this.rivalHome = rivalHome;
+    public void setTeamHome(TeamRepresentation teamHome) {
+        this.teamHome = teamHome;
     }
 
-    public RivalRepresentation getRivalAway() {
-        return rivalAway;
+    public TeamRepresentation getTeamAway() {
+        return teamAway;
     }
 
-    public void setRivalAway(RivalRepresentation rivalAway) {
-        this.rivalAway = rivalAway;
+    public void setTeamAway(TeamRepresentation teamAway) {
+        this.teamAway = teamAway;
     }
 
     public ResultEnum getResultBet() {
@@ -71,20 +71,20 @@ public class GameRepresentation implements Serializable {
         this.resultBet = resultBet;
     }
 
-    public double getOddRivalHome() {
-        return oddRivalHome;
+    public double getOddTeamHome() {
+        return oddTeamHome;
     }
 
-    public void setOddRivalHome(double oddRivalHome) {
-        this.oddRivalHome = oddRivalHome;
+    public void setOddTeamHome(double oddTeamHome) {
+        this.oddTeamHome = oddTeamHome;
     }
 
-    public double getOddRivalAway() {
-        return oddRivalAway;
+    public double getOddTeamAway() {
+        return oddTeamAway;
     }
 
-    public void setOddRivalAway(double oddRivalAway) {
-        this.oddRivalAway = oddRivalAway;
+    public void setOddTeamAway(double oddTeamAway) {
+        this.oddTeamAway = oddTeamAway;
     }
 
     public double getOddTie() {

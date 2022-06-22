@@ -1,7 +1,7 @@
 package com.apostas.domain.aposta;
 
 import com.apostas.application.dto.BetDto;
-import com.apostas.domain.game.rival.Game;
+import com.apostas.domain.game.Game;
 import com.apostas.domain.user.User;
 
 import javax.persistence.*;

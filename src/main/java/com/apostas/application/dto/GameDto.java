@@ -10,11 +10,11 @@ import java.util.Objects;
 public class GameDto implements Serializable {
     @JsonIgnore
     private Long id;
-    private Long idRivalHome;
-    private Long idRivalAway;
+    private Long idTeamHome;
+    private Long idTeamAway;
     private ResultEnum resultBet;
-    private double oddRivalHome;
-    private double oddRivalAway;
+    private double oddTeamHome;
+    private double oddTeamAway;
     private double oddTie;
     private String campeonato;
     private LocalDate created_at = LocalDate.now();
@@ -25,13 +25,13 @@ public class GameDto implements Serializable {
     public GameDto() {
     }
 
-    public GameDto(Long id, Long idRivalHome, Long idRivalAway, ResultEnum resultBet, double oddRivalHome, double oddRivalAway, double oddTie, String campeonato, LocalDate created_at, LocalDate updated_at, LocalDate limiteAposta, LocalDate dataTermino) {
+    public GameDto(Long id, Long idTeamHome, Long idTeamAway, ResultEnum resultBet, double oddTeamHome, double oddTeamAway, double oddTie, String campeonato, LocalDate created_at, LocalDate updated_at, LocalDate limiteAposta, LocalDate dataTermino) {
         this.id = id;
-        this.idRivalHome = idRivalHome;
-        this.idRivalAway = idRivalAway;
+        this.idTeamHome = idTeamHome;
+        this.idTeamAway = idTeamAway;
         this.resultBet = resultBet;
-        this.oddRivalHome = oddRivalHome;
-        this.oddRivalAway = oddRivalAway;
+        this.oddTeamHome = oddTeamHome;
+        this.oddTeamAway = oddTeamAway;
         this.oddTie = oddTie;
         this.campeonato = campeonato;
         this.created_at = created_at;
@@ -48,20 +48,20 @@ public class GameDto implements Serializable {
         this.id = id;
     }
 
-    public Long getIdRivalHome() {
-        return idRivalHome;
+    public Long getIdTeamHome() {
+        return idTeamHome;
     }
 
-    public void setIdRivalHome(Long idRivalHome) {
-        this.idRivalHome = idRivalHome;
+    public void setIdTeamHome(Long idTeamHome) {
+        this.idTeamHome = idTeamHome;
     }
 
-    public Long getIdRivalAway() {
-        return idRivalAway;
+    public Long getIdTeamAway() {
+        return idTeamAway;
     }
 
-    public void setIdRivalAway(Long idRivalAway) {
-        this.idRivalAway = idRivalAway;
+    public void setIdTeamAway(Long idTeamAway) {
+        this.idTeamAway = idTeamAway;
     }
 
     public ResultEnum getResultBet() {
@@ -72,20 +72,20 @@ public class GameDto implements Serializable {
         this.resultBet = resultBet;
     }
 
-    public double getOddRivalHome() {
-        return oddRivalHome;
+    public double getOddTeamHome() {
+        return oddTeamHome;
     }
 
-    public void setOddRivalHome(double oddRivalHome) {
-        this.oddRivalHome = oddRivalHome;
+    public void setOddTeamHome(double oddTeamHome) {
+        this.oddTeamHome = oddTeamHome;
     }
 
-    public double getOddRivalAway() {
-        return oddRivalAway;
+    public double getOddTeamAway() {
+        return oddTeamAway;
     }
 
-    public void setOddRivalAway(double oddRivalAway) {
-        this.oddRivalAway = oddRivalAway;
+    public void setOddTeamAway(double oddTeamAway) {
+        this.oddTeamAway = oddTeamAway;
     }
 
     public double getOddTie() {
@@ -142,11 +142,11 @@ public class GameDto implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         GameDto entity = (GameDto) o;
         return Objects.equals(this.id, entity.id) &&
-                Objects.equals(this.idRivalHome, entity.idRivalHome) &&
-                Objects.equals(this.idRivalAway, entity.idRivalAway) &&
+                Objects.equals(this.oddTeamHome, entity.oddTeamHome) &&
+                Objects.equals(this.idTeamAway, entity.idTeamAway) &&
                 Objects.equals(this.resultBet, entity.resultBet) &&
-                Objects.equals(this.oddRivalHome, entity.oddRivalHome) &&
-                Objects.equals(this.oddRivalAway, entity.oddRivalAway) &&
+                Objects.equals(this.oddTeamHome, entity.oddTeamHome) &&
+                Objects.equals(this.oddTeamAway, entity.oddTeamAway) &&
                 Objects.equals(this.oddTie, entity.oddTie) &&
                 Objects.equals(this.campeonato, entity.campeonato) &&
                 Objects.equals(this.created_at, entity.created_at) &&
@@ -157,6 +157,6 @@ public class GameDto implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, idRivalHome, idRivalAway, resultBet, oddRivalHome, oddRivalAway, oddTie, campeonato, created_at, updated_at, limiteAposta, dataTermino);
+        return Objects.hash(id, idTeamHome, idTeamAway, resultBet, oddTeamHome, oddTeamAway, oddTie, campeonato, created_at, updated_at, limiteAposta, dataTermino);
     }
 }

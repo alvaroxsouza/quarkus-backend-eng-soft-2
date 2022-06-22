@@ -1,4 +1,4 @@
-package com.apostas.domain.game.rival;
+package com.apostas.domain.game;
 
 import com.apostas.application.dto.GameDto;
 import com.apostas.domain.aposta.Bet;
@@ -6,6 +6,7 @@ import com.apostas.domain.enumutilities.ResultEnum;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -17,19 +18,19 @@ public class Game {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "rival_home_id", referencedColumnName = "id")
-    private Rival rivalHome;
+    @JoinColumn(name = "team_home_id", referencedColumnName = "id")
+    private Team teamHome;
 
     @ManyToOne
-    @JoinColumn(name = "rival_away_id", referencedColumnName = "id")
-    private Rival rivalAway;
+    @JoinColumn(name = "team_away_id", referencedColumnName = "id")
+    private Team teamAway;
 
     @Enumerated(EnumType.STRING)
     private ResultEnum resultBet;
 
-    private double oddRivalHome;
+    private double oddTeamHome;
 
-    private double oddRivalAway;
+    private double oddTeamAway;
 
     private double oddTie;
 
@@ -53,13 +54,17 @@ public class Game {
     public Game() {
     }
 
-    public Game(Long id, Rival rivalHome, Rival rivalAway, ResultEnum resultBet, double oddRivalHome, double oddRivalAway, double oddTie, String campeonato, LocalDate created_at, LocalDate updated_at, LocalDate limiteAposta, LocalDate dataTermino) {
+    public Game(Long id) {
         this.id = id;
-        this.rivalHome = rivalHome;
-        this.rivalAway = rivalAway;
+    }
+
+    public Game(Long id, Team teamHome, Team teamAway, ResultEnum resultBet, double oddRivalHome, double oddRivalAway, double oddTie, String campeonato, LocalDate created_at, LocalDate updated_at, LocalDate limiteAposta, LocalDate dataTermino) {
+        this.id = id;
+        this.teamHome = teamHome;
+        this.teamAway = teamAway;
         this.resultBet = resultBet;
-        this.oddRivalHome = oddRivalHome;
-        this.oddRivalAway = oddRivalAway;
+        this.oddTeamHome = oddRivalHome;
+        this.oddTeamAway = oddRivalAway;
         this.oddTie = oddTie;
         this.campeonato = campeonato;
         this.created_at = created_at;
@@ -70,11 +75,11 @@ public class Game {
 
     public Game(GameDto gameDto) {
         this.id = gameDto.getId();
-        this.rivalHome = new Rival(gameDto.getIdRivalHome());
-        this.rivalAway = new Rival(gameDto.getIdRivalAway());
+        this.teamHome = new Team(gameDto.getIdTeamHome());
+        this.teamAway = new Team(gameDto.getIdTeamAway());
         this.resultBet = gameDto.getResultBet();
-        this.oddRivalHome = gameDto.getOddRivalHome();
-        this.oddRivalAway = gameDto.getOddRivalAway();
+        this.oddTeamHome = gameDto.getOddTeamHome();
+        this.oddTeamAway = gameDto.getOddTeamAway();
         this.oddTie = gameDto.getOddTie();
         this.campeonato = gameDto.getCampeonato();
         this.created_at = gameDto.getCreated_at();
@@ -83,8 +88,18 @@ public class Game {
         this.dataTermino = gameDto.getDataTermino();
     }
 
-    public Game(Long idGame) {
-        this.id = idGame;
+    public void updateGame(GameDto gameDto) {
+        this.id = gameDto.getId();
+        this.teamAway = new Team(gameDto.getIdTeamAway());
+        this.teamHome = new Team(gameDto.getIdTeamHome());
+        this.resultBet = gameDto.getResultBet();
+        this.oddTeamHome = gameDto.getOddTeamHome();
+        this.oddTeamAway = gameDto.getOddTeamAway();
+        this.oddTie = gameDto.getOddTie();
+        this.campeonato = gameDto.getCampeonato();
+        this.updated_at = LocalDate.now();
+        this.limiteAposta = gameDto.getLimiteAposta();
+        this.dataTermino = gameDto.getDataTermino();
     }
 
     public Long getId() {
@@ -95,20 +110,20 @@ public class Game {
         this.id = id;
     }
 
-    public Rival getRivalHome() {
-        return rivalHome;
+    public Team getTeamHome() {
+        return teamHome;
     }
 
-    public void setRivalHome(Rival rivalHome) {
-        this.rivalHome = rivalHome;
+    public void setTeamHome(Team teamHome) {
+        this.teamHome = teamHome;
     }
 
-    public Rival getRivalAway() {
-        return rivalAway;
+    public Team getTeamAway() {
+        return teamAway;
     }
 
-    public void setRivalAway(Rival rivalAway) {
-        this.rivalAway = rivalAway;
+    public void setTeamAway(Team teamAway) {
+        this.teamAway = teamAway;
     }
 
     public ResultEnum getResultBet() {
@@ -119,28 +134,20 @@ public class Game {
         this.resultBet = resultBet;
     }
 
-    public double getOddRivalHome() {
-        return oddRivalHome;
+    public double getOddTeamHome() {
+        return oddTeamHome;
     }
 
-    public List<Bet> getBets() {
-        return bets;
+    public void setOddTeamHome(double oddTeamHome) {
+        this.oddTeamHome = oddTeamHome;
     }
 
-    public void setBets(List<Bet> bets) {
-        this.bets = bets;
+    public double getOddTeamAway() {
+        return oddTeamAway;
     }
 
-    public void setOddRivalHome(double oddRivalHome) {
-        this.oddRivalHome = oddRivalHome;
-    }
-
-    public double getOddRivalAway() {
-        return oddRivalAway;
-    }
-
-    public void setOddRivalAway(double oddRivalAway) {
-        this.oddRivalAway = oddRivalAway;
+    public void setOddTeamAway(double oddTeamAway) {
+        this.oddTeamAway = oddTeamAway;
     }
 
     public double getOddTie() {
@@ -191,17 +198,11 @@ public class Game {
         this.dataTermino = dataTermino;
     }
 
-    public void updateGame(GameDto gameDto) {
-        this.id = gameDto.getId();
-        this.rivalAway = new Rival(gameDto.getIdRivalAway());
-        this.rivalHome = new Rival(gameDto.getIdRivalHome());
-        this.resultBet = gameDto.getResultBet();
-        this.oddRivalHome = gameDto.getOddRivalHome();
-        this.oddRivalAway = gameDto.getOddRivalAway();
-        this.oddTie = gameDto.getOddTie();
-        this.campeonato = gameDto.getCampeonato();
-        this.updated_at = LocalDate.now();
-        this.limiteAposta = gameDto.getLimiteAposta();
-        this.dataTermino = gameDto.getDataTermino();
+    public List<Bet> getBets() {
+        return (bets != null) ? bets : new ArrayList<>();
+    }
+
+    public void setBets(List<Bet> bets) {
+        this.bets = bets;
     }
 }

@@ -26,21 +26,21 @@ public class BetResource {
     }
 
     @GET
-    @Operation(summary = "Obtém todos os usuários da base.")
+    @Operation(summary = "Obtém todas as apostas da base.")
     public List<BetRepresentation> getAllBet() {
         return this.betService.getAllBets();
     }
 
     @GET
     @Path("{id}")
-    @Operation(summary = "Obtém um usuário por ID na base.")
+    @Operation(summary = "Obtém uma aposta na base pelo seu ID.")
     public BetRepresentation getBetById(@PathParam("id") Long id) {
         return this.betService.getBetById(id);
     }
 
     @POST
     @Transactional
-    @Operation(summary = "Adiciona um usuário na base.")
+    @Operation(summary = "Adiciona uma aposta na base.")
     public Response addBet(BetDto betDto) {
         Bet bet = new Bet(betDto);
         if(bet != null) {
@@ -52,7 +52,7 @@ public class BetResource {
     @PUT
     @Path("{id}")
     @Transactional
-    @Operation(summary = "Atualiza um usuário na base.")
+    @Operation(summary = "Altera uma aposta na base.")
     public Response updateBet(@PathParam("id") Long id, BetDto betDto) {
         betDto.setId(id);
         this.betService.updateBet(betDto);
@@ -62,7 +62,7 @@ public class BetResource {
     @DELETE
     @Path("{id}")
     @Transactional
-    @Operation(summary = "Deleta um usuário na base.")
+    @Operation(summary = "Deleta uma aposta na base.")
     public Response deleteBet(@PathParam("id") Long id) {
         this.betService.deleteBet(id);
         return Response.ok().build();

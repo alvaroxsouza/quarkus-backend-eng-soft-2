@@ -1,6 +1,8 @@
 package com.apostas.application.services;
 
+import com.apostas.application.dto.FoundMoneyDto;
 import com.apostas.application.dto.UserDto;
+import com.apostas.application.money.MoneyOperation;
 import com.apostas.application.representation.UserRepresentation;
 import com.apostas.domain.repository.UserRepository;
 import com.apostas.domain.user.User;
@@ -42,5 +44,11 @@ public class UserService {
     public UserRepresentation getUserById(Long id) {
         User user = this.userRepository.get(id);
         return new UserRepresentation(user);
+    }
+
+    public void addMoneyUser(FoundMoneyDto foundMoneyDto) {
+        User user = this.userRepository.get(foundMoneyDto.getId());
+        String newMoney = MoneyOperation.addMoney(user.getDinheiroDisponivel(), foundMoneyDto.getMoney());
+        user.setDinheiroDisponivel(newMoney);
     }
 }

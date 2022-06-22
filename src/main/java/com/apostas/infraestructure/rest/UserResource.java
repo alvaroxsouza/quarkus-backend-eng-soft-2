@@ -1,5 +1,6 @@
 package com.apostas.infraestructure.rest;
 
+import com.apostas.application.dto.FoundMoneyDto;
 import com.apostas.application.dto.UserDto;
 import com.apostas.application.representation.UserRepresentation;
 import com.apostas.application.services.UserService;
@@ -56,6 +57,15 @@ public class UserResource {
     public Response updateUser(@PathParam("id") Long id, UserDto userDto) {
         userDto.setId(id);
         this.userService.updateUser(userDto);
+        return Response.ok().build();
+    }
+
+    @PUT
+    @Path("addMoney")
+    @Transactional
+    @Operation(summary = "Adiciona fundos a carteira do ")
+    public Response updateUser(FoundMoneyDto foundMoneyDto) {
+        this.userService.addMoneyUser(foundMoneyDto);
         return Response.ok().build();
     }
 

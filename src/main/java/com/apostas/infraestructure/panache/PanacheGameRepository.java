@@ -1,6 +1,6 @@
 package com.apostas.infraestructure.panache;
 
-import com.apostas.domain.game.rival.Game;
+import com.apostas.domain.game.Game;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 
 import javax.enterprise.context.ApplicationScoped;

@@ -1,6 +1,6 @@
 package com.apostas.infraestructure.jpa;
 
-import com.apostas.domain.game.rival.Game;
+import com.apostas.domain.game.Game;
 import com.apostas.domain.repository.GameRepository;
 import com.apostas.infraestructure.panache.PanacheGameRepository;
 

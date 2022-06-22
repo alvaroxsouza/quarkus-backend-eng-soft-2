@@ -6,7 +6,6 @@ import javax.money.MonetaryAmount;
 import javax.money.format.MonetaryAmountFormat;
 import javax.money.format.MonetaryFormats;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.Locale;
 
 public class MoneyOperation {
@@ -16,13 +15,15 @@ public class MoneyOperation {
     private static MonetaryAmountFormat formatBRL = MonetaryFormats.getAmountFormat(localBrasil);
 
     public static String getMoney(String moneyActual) {
-        BigInteger moneyConverter = new BigInteger(moneyActual);
-
+        moneyActual = formatStringDecimal(moneyActual);
+        BigDecimal moneyConverter = new BigDecimal(moneyActual);
         MonetaryAmount amountActualBrl = Monetary.getDefaultAmountFactory().setCurrency(currencyUnit).setNumber(moneyConverter).create();
         return formatBRL.format(amountActualBrl);
     }
 
     public static String addMoney(String moneyActual, String moneyAdd) {
+        moneyActual = formatStringDecimal(moneyActual);
+
         BigDecimal moneyActualConverter = new BigDecimal(moneyActual);
         BigDecimal moneyAddConverter = new BigDecimal(moneyAdd);
 
@@ -35,6 +36,8 @@ public class MoneyOperation {
     }
 
     public static String subMoney(String moneyActual, String moneySub) {
+        moneyActual = formatStringDecimal(moneyActual);
+
         BigDecimal moneyActualConverter = new BigDecimal(moneyActual);
         BigDecimal moneyAddConverter = new BigDecimal(moneySub);
 
@@ -47,6 +50,7 @@ public class MoneyOperation {
     }
 
     public static String mulMoney(String moneyActual, double moneyMult) {
+        moneyActual = formatStringDecimal(moneyActual);
         BigDecimal moneyActualConverter = new BigDecimal(moneyActual);
 
         MonetaryAmount amountActualBrl = Monetary.getDefaultAmountFactory().setCurrency(currencyUnit).setNumber(moneyActualConverter).create();
@@ -57,6 +61,7 @@ public class MoneyOperation {
     }
 
     public static String divideMoney(String moneyActual, double moneyDiv) {
+        moneyActual = formatStringDecimal(moneyActual);
         BigDecimal moneyActualConverter = new BigDecimal(moneyActual);
 
         MonetaryAmount amountActualBrl = Monetary.getDefaultAmountFactory().setCurrency(currencyUnit).setNumber(moneyActualConverter).create();
@@ -65,4 +70,21 @@ public class MoneyOperation {
 
         return formatBRL.format(amountActualBrl);
     }
+
+    private static String formatStringDecimal(String money) {
+        var divide = money.split(",");
+
+        var maxPart = divide[0];
+
+        maxPart = removeSimbolMonetary(maxPart);
+
+        var minPart = divide[1];
+        return maxPart + "." + minPart;
+    }
+
+    private static String removeSimbolMonetary(String maxPart) {
+        var divide = maxPart.split(" ");
+        return divide[1];
+    }
+
 }

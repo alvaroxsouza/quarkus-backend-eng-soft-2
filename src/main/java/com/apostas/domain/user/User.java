@@ -20,6 +20,7 @@ public class User {
     private String nomeDoUsuario;
     private String email;
     private String senha;
+    private String dinheiroDisponivel;
 
     @Enumerated(EnumType.STRING)
     private ProfileUserEnum profile;
@@ -33,14 +34,6 @@ public class User {
     private List<Bet> betList = new ArrayList<>();
 
     public User(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
         this.id = id;
     }
 
@@ -64,6 +57,10 @@ public class User {
         this.updated_at = updated_at;
     }
 
+    public void updateMoneyUser(String moneyAdd) {
+        this.dinheiroDisponivel = moneyAdd;
+    }
+
     public void updateUser(UserDto userDto) {
         this.id = userDto.getId();
         this.nomeDoUsuario = userDto.getNomeDoUsuario();
@@ -71,6 +68,14 @@ public class User {
         this.senha = userDto.getSenha();
         this.profile = ProfileUserEnum.valueOf(userDto.getProfile().getValue());
         this.updated_at = LocalDate.now();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNomeDoUsuario() {
@@ -130,5 +135,13 @@ public class User {
 
     public void setBetList(List<Bet> betList) {
         this.betList = betList;
+    }
+
+    public String getDinheiroDisponivel() {
+        return (dinheiroDisponivel != null) ? this.dinheiroDisponivel : "BRL 0.00";
+    }
+
+    public void setDinheiroDisponivel(String dinheiroDisponivel) {
+        this.dinheiroDisponivel = dinheiroDisponivel;
     }
 }

@@ -3,7 +3,7 @@ package com.apostas.application.services;
 import com.apostas.application.dto.BetDto;
 import com.apostas.application.representation.BetRepresentation;
 import com.apostas.domain.aposta.Bet;
-import com.apostas.domain.game.rival.Game;
+import com.apostas.domain.game.Game;
 import com.apostas.domain.repository.BetRepository;
 import com.apostas.domain.repository.GameRepository;
 import com.apostas.domain.repository.UserRepository;
