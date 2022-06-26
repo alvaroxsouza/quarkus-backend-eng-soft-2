@@ -17,6 +17,21 @@ public class MoneyOperationTest {
     }
 
     @Test
+    void operationMoneyAddFoundsCentsCorrect() {
+        assertEquals("BRL 0,70", MoneyOperation.addMoney("BRL 000,5", "0.2"));
+    }
+
+    @Test
+    void operationMoneyAddFoundsMoneyActualCorrect() {
+        assertEquals("BRL 2.550,72", MoneyOperation.addMoney("BRL 2.200,232", "350.492"));
+    }
+
+    @Test
+    void operationMoneyAddFoundsMoneyActualMillionCorrect() {
+        assertEquals("BRL 2.000.550,72", MoneyOperation.addMoney("BRL 2.000.200,232", "350.492"));
+    }
+
+    @Test
     void operationMoneySubFoundsCorrect() {
         assertEquals("BRL -150,26", MoneyOperation.subMoney("BRL 200,232", "350.492"));
     }

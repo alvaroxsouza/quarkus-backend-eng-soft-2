@@ -56,6 +56,7 @@ public class Bet {
         this.id = betDto.getId();
         this.win = betDto.isWin();
         this.user = new User(betDto.getIdUser());
+        this.moneyBet = betDto.getBetValue();
         this.games = betDto.getGames().stream().map(Game::new).collect(Collectors.toList());
         this.created_at = betDto.getCreated_at();
         this.updated_at = betDto.getUpdated_at();

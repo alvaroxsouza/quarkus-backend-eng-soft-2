@@ -60,8 +60,8 @@ public class UserResource {
         return Response.ok().build();
     }
 
-    @PUT
-    @Path("addMoney")
+    @PATCH
+    @Path("add-money")
     @Transactional
     @Operation(summary = "Adiciona fundos a carteira do ")
     public Response updateUser(FoundMoneyDto foundMoneyDto) {

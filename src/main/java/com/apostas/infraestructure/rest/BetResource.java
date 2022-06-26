@@ -42,10 +42,7 @@ public class BetResource {
     @Transactional
     @Operation(summary = "Adiciona uma aposta na base.")
     public Response addBet(BetDto betDto) {
-        Bet bet = new Bet(betDto);
-        if(bet != null) {
-            this.betService.addBet(bet);
-        }
+        this.betService.addBet(betDto);
         return Response.ok().build();
     }
 

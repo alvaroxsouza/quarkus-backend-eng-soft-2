@@ -44,6 +44,7 @@ public class User {
         this.nomeDoUsuario = userDto.getNomeDoUsuario();
         this.email = userDto.getEmail();
         this.senha = userDto.getSenha();
+        this.dinheiroDisponivel = "BRL 0,00";
         this.profile = ProfileUserEnum.valueOf(userDto.getProfile().toString());
         this.updated_at = LocalDate.now();
     }
@@ -138,7 +139,7 @@ public class User {
     }
 
     public String getDinheiroDisponivel() {
-        return (dinheiroDisponivel != null) ? this.dinheiroDisponivel : "BRL 0.00";
+        return (dinheiroDisponivel != null) ? this.dinheiroDisponivel : "BRL 0,00";
     }
 
     public void setDinheiroDisponivel(String dinheiroDisponivel) {

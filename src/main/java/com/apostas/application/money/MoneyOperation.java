@@ -72,14 +72,26 @@ public class MoneyOperation {
     }
 
     private static String formatStringDecimal(String money) {
-        var divide = money.split(",");
+        var divideParteMilhar = money.split("\\.");
+        var quantidadeDivideParteMilhar = divideParteMilhar.length;
+        String minorPart = (quantidadeDivideParteMilhar > 0) ? divideParteMilhar[quantidadeDivideParteMilhar-1] : String.valueOf(divideParteMilhar);
+        var divideMinorPart = minorPart.split(",");
+        var centPart = divideMinorPart[0];
 
-        var maxPart = divide[0];
+        String maxPart = getMaxPart(divideParteMilhar, quantidadeDivideParteMilhar, centPart);
+        String minPart = divideMinorPart[1];
 
-        maxPart = removeSimbolMonetary(maxPart);
-
-        var minPart = divide[1];
         return maxPart + "." + minPart;
+    }
+
+    private static String getMaxPart(String[] divideParteMilhar, int quantidadeDivideParteMilhar, String centPart) {
+        String maxPart = "";
+        for(int i = 0; i < quantidadeDivideParteMilhar - 1; i++) {
+            maxPart += divideParteMilhar[i];
+        }
+        maxPart += centPart;
+        maxPart = removeSimbolMonetary(maxPart);
+        return maxPart;
     }
 
     private static String removeSimbolMonetary(String maxPart) {
