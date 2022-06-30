@@ -1,7 +1,5 @@
 package com.apostas.application.dto;
 
-import com.apostas.application.money.MoneyOperation;
-import com.apostas.domain.aposta.Bet;
 import com.apostas.domain.game.Game;
 import org.junit.jupiter.api.Test;
 import org.wildfly.common.Assert;
@@ -10,7 +8,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.wildfly.common.Assert.assertFalse;
 
