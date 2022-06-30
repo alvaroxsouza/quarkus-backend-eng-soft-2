@@ -17,6 +17,7 @@ public class GameDto implements Serializable {
     private double oddTeamAway;
     private double oddTie;
     private String campeonato;
+    private String category;
     private LocalDate created_at = LocalDate.now();
     private LocalDate updated_at;
     private LocalDate limiteAposta;
@@ -25,7 +26,7 @@ public class GameDto implements Serializable {
     public GameDto() {
     }
 
-    public GameDto(Long id, Long idTeamHome, Long idTeamAway, ResultEnum resultBet, double oddTeamHome, double oddTeamAway, double oddTie, String campeonato, LocalDate created_at, LocalDate updated_at, LocalDate limiteAposta, LocalDate dataTermino) {
+    public GameDto(Long id, Long idTeamHome, Long idTeamAway, ResultEnum resultBet, double oddTeamHome, double oddTeamAway, double oddTie, String campeonato, String category, LocalDate created_at, LocalDate updated_at, LocalDate limiteAposta, LocalDate dataTermino) {
         this.id = id;
         this.idTeamHome = idTeamHome;
         this.idTeamAway = idTeamAway;
@@ -34,6 +35,7 @@ public class GameDto implements Serializable {
         this.oddTeamAway = oddTeamAway;
         this.oddTie = oddTie;
         this.campeonato = campeonato;
+        this.category = category;
         this.created_at = created_at;
         this.updated_at = updated_at;
         this.limiteAposta = limiteAposta;
@@ -98,6 +100,14 @@ public class GameDto implements Serializable {
 
     public String getCampeonato() {
         return campeonato;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public void setCampeonato(String campeonato) {

@@ -1,7 +1,8 @@
 package com.apostas.domain.game;
 
 import com.apostas.application.dto.GameDto;
-import com.apostas.domain.aposta.Bet;
+import com.apostas.domain.bet.Bet;
+import com.apostas.domain.enumutilities.CateryEnum;
 import com.apostas.domain.enumutilities.ResultEnum;
 
 import javax.persistence.*;
@@ -29,19 +30,14 @@ public class Game {
     private ResultEnum resultBet;
 
     private double oddTeamHome;
-
     private double oddTeamAway;
-
     private double oddTie;
-
     private String campeonato;
+    private CateryEnum category;
 
     private LocalDate created_at = LocalDate.now();
-
     private LocalDate updated_at;
-
-    private LocalDate limiteAposta;
-
+    private LocalDate limitBet;
     private LocalDate dataTermino;
 
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
@@ -58,7 +54,7 @@ public class Game {
         this.id = id;
     }
 
-    public Game(Long id, Team teamHome, Team teamAway, ResultEnum resultBet, double oddRivalHome, double oddRivalAway, double oddTie, String campeonato, LocalDate created_at, LocalDate updated_at, LocalDate limiteAposta, LocalDate dataTermino) {
+    public Game(Long id, Team teamHome, Team teamAway, ResultEnum resultBet, double oddRivalHome, double oddRivalAway, double oddTie, String campeonato, LocalDate created_at, LocalDate updated_at, LocalDate limitBet, LocalDate dataTermino) {
         this.id = id;
         this.teamHome = teamHome;
         this.teamAway = teamAway;
@@ -69,7 +65,7 @@ public class Game {
         this.campeonato = campeonato;
         this.created_at = created_at;
         this.updated_at = updated_at;
-        this.limiteAposta = limiteAposta;
+        this.limitBet = limitBet;
         this.dataTermino = dataTermino;
     }
 
@@ -81,10 +77,11 @@ public class Game {
         this.oddTeamHome = gameDto.getOddTeamHome();
         this.oddTeamAway = gameDto.getOddTeamAway();
         this.oddTie = gameDto.getOddTie();
+        this.category = CateryEnum.valueOf(gameDto.getCategory());
         this.campeonato = gameDto.getCampeonato();
         this.created_at = gameDto.getCreated_at();
         this.updated_at = gameDto.getUpdated_at();
-        this.limiteAposta = gameDto.getLimiteAposta();
+        this.limitBet = gameDto.getLimiteAposta();
         this.dataTermino = gameDto.getDataTermino();
     }
 
@@ -98,7 +95,7 @@ public class Game {
         this.oddTie = gameDto.getOddTie();
         this.campeonato = gameDto.getCampeonato();
         this.updated_at = LocalDate.now();
-        this.limiteAposta = gameDto.getLimiteAposta();
+        this.limitBet = gameDto.getLimiteAposta();
         this.dataTermino = gameDto.getDataTermino();
     }
 
@@ -162,6 +159,14 @@ public class Game {
         return campeonato;
     }
 
+    public CateryEnum getCategory() {
+        return category;
+    }
+
+    public void setCategory(CateryEnum category) {
+        this.category = category;
+    }
+
     public void setCampeonato(String campeonato) {
         this.campeonato = campeonato;
     }
@@ -182,12 +187,12 @@ public class Game {
         this.updated_at = updated_at;
     }
 
-    public LocalDate getLimiteAposta() {
-        return limiteAposta;
+    public LocalDate getLimitBet() {
+        return limitBet;
     }
 
-    public void setLimiteAposta(LocalDate limiteAposta) {
-        this.limiteAposta = limiteAposta;
+    public void setLimitBet(LocalDate limiteAposta) {
+        this.limitBet = limiteAposta;
     }
 
     public LocalDate getDataTermino() {

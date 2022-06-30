@@ -1,6 +1,6 @@
 package com.apostas.domain.repository;
 
-import com.apostas.domain.aposta.Bet;
+import com.apostas.domain.bet.Bet;
 
 public interface BetRepository extends Repository<Bet, Long> {
 
