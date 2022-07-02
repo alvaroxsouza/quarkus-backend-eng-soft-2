@@ -38,7 +38,7 @@ public class Game {
     private LocalDate created_at = LocalDate.now();
     private LocalDate updated_at;
 
-    private LocalDate limiteAposta;
+    private LocalDate limitBet;
 
     private boolean terminou;
 
@@ -60,11 +60,8 @@ public class Game {
         this.id = id;
     }
 
-<<<<<<< HEAD
     public Game(Long id, Team teamHome, Team teamAway, ResultEnum resultBet, double oddRivalHome, double oddRivalAway, double oddTie, String campeonato, LocalDate created_at, LocalDate updated_at, LocalDate limiteAposta) {
-=======
-    public Game(Long id, Team teamHome, Team teamAway, ResultEnum resultBet, double oddRivalHome, double oddRivalAway, double oddTie, String campeonato, LocalDate created_at, LocalDate updated_at, LocalDate limitBet, LocalDate dataTermino) {
->>>>>>> 3d79c692eb9296c9ad7821a510564cd37aa25331
+
         this.id = id;
         this.teamHome = teamHome;
         this.teamAway = teamAway;
@@ -75,12 +72,8 @@ public class Game {
         this.campeonato = campeonato;
         this.created_at = created_at;
         this.updated_at = updated_at;
-<<<<<<< HEAD
-        this.limiteAposta = limiteAposta;
-=======
-        this.limitBet = limitBet;
-        this.dataTermino = dataTermino;
->>>>>>> 3d79c692eb9296c9ad7821a510564cd37aa25331
+        this.limitBet = limiteAposta;
+
     }
 
     public Game(GameDto gameDto) {
@@ -95,12 +88,7 @@ public class Game {
         this.campeonato = gameDto.getCampeonato();
         this.created_at = gameDto.getCreated_at();
         this.updated_at = gameDto.getUpdated_at();
-<<<<<<< HEAD
-        this.limiteAposta = gameDto.getLimiteAposta();
-=======
         this.limitBet = gameDto.getLimiteAposta();
-        this.dataTermino = gameDto.getDataTermino();
->>>>>>> 3d79c692eb9296c9ad7821a510564cd37aa25331
     }
 
     public void updateGame(GameDto gameDto) {
@@ -113,12 +101,7 @@ public class Game {
         this.oddTie = gameDto.getOddTie();
         this.campeonato = gameDto.getCampeonato();
         this.updated_at = LocalDate.now();
-<<<<<<< HEAD
-        this.limiteAposta = gameDto.getLimiteAposta();
-=======
         this.limitBet = gameDto.getLimiteAposta();
-        this.dataTermino = gameDto.getDataTermino();
->>>>>>> 3d79c692eb9296c9ad7821a510564cd37aa25331
     }
 
     public Long getId() {
