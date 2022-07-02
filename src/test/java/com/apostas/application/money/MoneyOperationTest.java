@@ -2,7 +2,7 @@ package com.apostas.application.money;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class MoneyOperationTest {
 
@@ -24,6 +24,21 @@ class MoneyOperationTest {
     @Test
     void operationMoneyAddFoundsMoneyActualCorrect() {
         assertEquals("BRL 2.550,72", MoneyOperation.addMoney("BRL 2.200,232", "350.492"));
+    }
+
+    @Test
+    void operationMoneyWithdrawFoundsMoneyEqualValuesSuccessCorrect() {
+        assertTrue(MoneyOperation.biggerThenOrEqual("BRL 200,00","200.00"));
+    }
+
+    @Test
+    void operationMoneyWithdrawFoundsMoneyBiggerThenSuccessCorrect() {
+        assertTrue(MoneyOperation.biggerThenOrEqual("BRL 250,00","200.00"));
+    }
+
+    @Test
+    void operationMoneyWithdrawFoundsMoneyBiggerThenFailedCorrect() {
+        assertFalse(MoneyOperation.biggerThenOrEqual("BRL 200,00","250.00"));
     }
 
     @Test

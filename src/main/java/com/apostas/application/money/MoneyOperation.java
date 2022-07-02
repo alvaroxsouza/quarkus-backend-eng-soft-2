@@ -21,6 +21,15 @@ public class MoneyOperation {
         return formatBRL.format(amountActualBrl);
     }
 
+    public static boolean biggerThenOrEqual(String moneyActual, String moneyCompare) {
+        moneyActual = formatStringDecimal(moneyActual);
+
+        BigDecimal moneyActualConverter = new BigDecimal(moneyActual);
+        BigDecimal moneyAddConverter = new BigDecimal(moneyCompare);
+
+        return moneyActualConverter.compareTo(moneyAddConverter) == 1 || moneyActualConverter.compareTo(moneyAddConverter) == 0;
+    }
+
     public static String addMoney(String moneyActual, String moneyAdd) {
         moneyActual = formatStringDecimal(moneyActual);
 

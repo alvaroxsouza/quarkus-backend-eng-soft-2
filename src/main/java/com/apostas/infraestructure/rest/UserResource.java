@@ -1,6 +1,7 @@
 package com.apostas.infraestructure.rest;
 
 import com.apostas.application.dto.FoundMoneyDto;
+import com.apostas.application.dto.LoginDto;
 import com.apostas.application.dto.UserDto;
 import com.apostas.application.representation.UserRepresentation;
 import com.apostas.application.services.UserService;
@@ -63,10 +64,26 @@ public class UserResource {
     @PATCH
     @Path("add-money")
     @Transactional
-    @Operation(summary = "Adiciona fundos a carteira do ")
-    public Response updateUser(FoundMoneyDto foundMoneyDto) {
+    @Operation(summary = "Adiciona fundos a carteira do Usuário")
+    public Response addFoundsUser(FoundMoneyDto foundMoneyDto) {
         this.userService.addMoneyUser(foundMoneyDto);
         return Response.ok().build();
+    }
+
+    @PATCH
+    @Path("withdraw-money")
+    @Transactional
+    @Operation(summary = "Saca fundos a carteira do Usuário")
+    public Response withdrawFoundsUser(FoundMoneyDto foundMoneyDto) {
+        this.userService.withdrawMoneyUser(foundMoneyDto);
+        return Response.ok().build();
+    }
+
+    @POST
+    @Path("login")
+    @Operation(summary = "Faz login na aplicação")
+    public UserRepresentation loginUser(LoginDto loginDto) {
+        return this.userService.login(loginDto);
     }
 
     @DELETE

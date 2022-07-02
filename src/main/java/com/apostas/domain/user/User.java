@@ -18,6 +18,8 @@ public class User {
     @Column(name = "id", nullable = false)
     private Long id;
     private String nomeDoUsuario;
+
+    @Column(unique = true)
     private String email;
     private String senha;
     private String dinheiroDisponivel;
