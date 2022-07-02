@@ -1,5 +1,7 @@
 package com.apostas.application.dto;
 
+import com.apostas.domain.aposta.GameResult;
+import com.apostas.domain.enumutilities.ResultEnum;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.io.Serializable;
@@ -11,6 +13,7 @@ public class BetDto implements Serializable {
     @JsonIgnore
     private Long id;
     private List<Long> games;
+    private List<GameResult> apostas;
     private Long idUser;
     private boolean win;
     private String betValue;

@@ -42,7 +42,11 @@ public class Game {
 
     private LocalDate limiteAposta;
 
-    private LocalDate dataTermino;
+    private boolean terminou;
+
+    private Integer pontuacaoTimeHome;
+
+    private Integer pontuacaoTimeAway;
 
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @JoinTable(name = "game_betList",
@@ -58,7 +62,7 @@ public class Game {
         this.id = id;
     }
 
-    public Game(Long id, Team teamHome, Team teamAway, ResultEnum resultBet, double oddRivalHome, double oddRivalAway, double oddTie, String campeonato, LocalDate created_at, LocalDate updated_at, LocalDate limiteAposta, LocalDate dataTermino) {
+    public Game(Long id, Team teamHome, Team teamAway, ResultEnum resultBet, double oddRivalHome, double oddRivalAway, double oddTie, String campeonato, LocalDate created_at, LocalDate updated_at, LocalDate limiteAposta) {
         this.id = id;
         this.teamHome = teamHome;
         this.teamAway = teamAway;
@@ -70,7 +74,6 @@ public class Game {
         this.created_at = created_at;
         this.updated_at = updated_at;
         this.limiteAposta = limiteAposta;
-        this.dataTermino = dataTermino;
     }
 
     public Game(GameDto gameDto) {
@@ -85,7 +88,6 @@ public class Game {
         this.created_at = gameDto.getCreated_at();
         this.updated_at = gameDto.getUpdated_at();
         this.limiteAposta = gameDto.getLimiteAposta();
-        this.dataTermino = gameDto.getDataTermino();
     }
 
     public void updateGame(GameDto gameDto) {
@@ -99,7 +101,6 @@ public class Game {
         this.campeonato = gameDto.getCampeonato();
         this.updated_at = LocalDate.now();
         this.limiteAposta = gameDto.getLimiteAposta();
-        this.dataTermino = gameDto.getDataTermino();
     }
 
     public Long getId() {
@@ -190,14 +191,6 @@ public class Game {
         this.limiteAposta = limiteAposta;
     }
 
-    public LocalDate getDataTermino() {
-        return dataTermino;
-    }
-
-    public void setDataTermino(LocalDate dataTermino) {
-        this.dataTermino = dataTermino;
-    }
-
     public List<Bet> getBets() {
         return (bets != null) ? bets : new ArrayList<>();
     }
@@ -205,4 +198,29 @@ public class Game {
     public void setBets(List<Bet> bets) {
         this.bets = bets;
     }
+
+    public Integer getPontuacaoTimeHome() {
+        return pontuacaoTimeHome;
+    }
+
+    public void setPontuacaoTimeHome(Integer pontuacaoTimeHome) {
+        this.pontuacaoTimeHome = pontuacaoTimeHome;
+    }
+
+    public Integer getPontuacaoTimeAway() {
+        return pontuacaoTimeAway;
+    }
+
+    public void setPontuacaoTimeAway(Integer pontuacaoTimeAway) {
+        this.pontuacaoTimeAway = pontuacaoTimeAway;
+    }
+
+    public boolean isTerminou() {
+        return terminou;
+    }
+
+    public void setTerminou(boolean terminou) {
+        this.terminou = terminou;
+    }
+    
 }
