@@ -21,6 +21,15 @@ public class MoneyOperation {
         return formatBRL.format(amountActualBrl);
     }
 
+    public static boolean biggerThenOrEqual(String moneyActual, String moneyCompare) {
+        moneyActual = formatStringDecimal(moneyActual);
+
+        BigDecimal moneyActualConverter = new BigDecimal(moneyActual);
+        BigDecimal moneyAddConverter = new BigDecimal(moneyCompare);
+
+        return moneyActualConverter.compareTo(moneyAddConverter) == 1 || moneyActualConverter.compareTo(moneyAddConverter) == 0;
+    }
+
     public static String addMoney(String moneyActual, String moneyAdd) {
         moneyActual = formatStringDecimal(moneyActual);
 
@@ -75,21 +84,21 @@ public class MoneyOperation {
         var divideParteMilhar = money.split("\\.");
         var quantidadeDivideParteMilhar = divideParteMilhar.length;
         String minorPart = (quantidadeDivideParteMilhar > 0) ? divideParteMilhar[quantidadeDivideParteMilhar-1] : String.valueOf(divideParteMilhar);
-        var divideMinorPart = minorPart.split(",");
-        var centPart = divideMinorPart[0];
+        var divideParts = minorPart.split(",");
+        var minRealPart = divideParts[0];
 
-        String maxPart = getMaxPart(divideParteMilhar, quantidadeDivideParteMilhar, centPart);
-        String minPart = divideMinorPart[1];
+        String realPart = getMaxPart(divideParteMilhar, quantidadeDivideParteMilhar, minRealPart);
+        String centPart = divideParts[1];
 
-        return maxPart + "." + minPart;
+        return realPart + "." + centPart;
     }
 
-    private static String getMaxPart(String[] divideParteMilhar, int quantidadeDivideParteMilhar, String centPart) {
+    private static String getMaxPart(String[] divideParteMilhar, int quantidadeDivideParteMilhar, String minRealPart) {
         String maxPart = "";
         for(int i = 0; i < quantidadeDivideParteMilhar - 1; i++) {
             maxPart += divideParteMilhar[i];
         }
-        maxPart += centPart;
+        maxPart += minRealPart;
         maxPart = removeSimbolMonetary(maxPart);
         return maxPart;
     }

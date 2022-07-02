@@ -1,6 +1,6 @@
 package com.apostas.application.representation;
 
-import com.apostas.domain.aposta.Bet;
+import com.apostas.domain.bet.Bet;
 
 import java.io.Serializable;
 import java.time.LocalDate;

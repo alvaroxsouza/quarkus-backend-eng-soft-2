@@ -1,7 +1,7 @@
 package com.apostas.domain.user;
 
 import com.apostas.application.dto.UserDto;
-import com.apostas.domain.aposta.Bet;
+import com.apostas.domain.bet.Bet;
 import com.apostas.domain.enumutilities.ProfileUserEnum;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -18,6 +18,8 @@ public class User {
     @Column(name = "id", nullable = false)
     private Long id;
     private String nomeDoUsuario;
+
+    @Column(unique = true)
     private String email;
     private String senha;
     private String dinheiroDisponivel;

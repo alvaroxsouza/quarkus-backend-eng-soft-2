@@ -42,4 +42,9 @@ public class JPAUserRepository implements UserRepository {
     public List<User> all() {
         return this.panacheUserRepository.listAll();
     }
+
+    @Override
+    public User getByEmail(String email) {
+        return this.panacheUserRepository.getByEmail(email);
+    }
 }

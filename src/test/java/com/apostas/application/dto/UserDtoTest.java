@@ -1,13 +1,12 @@
 package com.apostas.application.dto;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.apostas.domain.enumutilities.ProfileUserEnum;
+import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 
-import org.junit.jupiter.api.Test;
-
-import com.apostas.domain.enumutilities.ProfileUserEnum;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class UserDtoTest {
     @Test

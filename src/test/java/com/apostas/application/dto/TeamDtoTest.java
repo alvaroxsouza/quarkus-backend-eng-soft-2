@@ -1,9 +1,6 @@
 package com.apostas.application.dto;
 
-import com.apostas.domain.enumutilities.ResultEnum;
 import org.junit.jupiter.api.Test;
-
-import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.wildfly.common.Assert.assertFalse;

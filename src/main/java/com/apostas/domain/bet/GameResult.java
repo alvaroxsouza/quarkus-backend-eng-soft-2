@@ -1,4 +1,4 @@
-package com.apostas.domain.aposta;
+package com.apostas.domain.bet;
 
 import com.apostas.domain.enumutilities.ResultEnum;
 
