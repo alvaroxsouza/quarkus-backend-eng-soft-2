@@ -58,6 +58,7 @@ public class UserService {
         User user = this.userRepository.get(foundMoneyDto.getId());
         if(MoneyOperation.biggerThenOrEqual(user.getDinheiroDisponivel(), foundMoneyDto.getMoney())) {
             String newMoney = MoneyOperation.subMoney(user.getDinheiroDisponivel(), foundMoneyDto.getMoney());
+            user.setDinheiroDisponivel(newMoney);
         } else {
             throw new BetBussinessExceptions("dinheiro-insuficiente");
         }
