@@ -2,8 +2,10 @@ package com.apostas.application.services;
 
 import com.apostas.application.dto.BetDto;
 import com.apostas.application.money.MoneyOperation;
+import com.apostas.application.money.OddCalculator;
 import com.apostas.application.representation.BetRepresentation;
 import com.apostas.domain.bet.Bet;
+import com.apostas.domain.enumutilities.ResultEnum;
 import com.apostas.domain.game.Game;
 import com.apostas.domain.repository.BetRepository;
 import com.apostas.domain.repository.GameRepository;
@@ -72,5 +74,25 @@ public class BetService {
 
     public void addBetInUser(BetDto betDto) {
 
+    }
+
+    /*
+     * Retorna o quanto usuário ganhou na aposta e faz o set do dinheiro atual do usuário.
+     * Parte do pressuposto que todos os jogos terminaram.
+     */
+    public String resultGain(BetDto betDto) {
+        Bet bet = this.betRepository.get(betDto.getId());
+        User user = this.userRepository.get(betDto.getIdUser());
+        for (Game game : bet.getGames()) {
+            game.whoWon();
+            ResultEnum gameResult = bet.getGameResult().get(bet.getGameResult().indexOf(game.getId())).getResult();
+            if(!game.getResultBet().equals(gameResult)){
+                return new String("Perdeu!");
+            }
+        }
+        double multOdd = OddCalculator.multOdds(bet, user);
+        String newMoney = MoneyOperation.mulMoney(bet.getMoneyBet(), multOdd);
+        user.setDinheiroDisponivel(MoneyOperation.addMoney(user.getDinheiroDisponivel(), newMoney));
+        return newMoney;
     }
 }

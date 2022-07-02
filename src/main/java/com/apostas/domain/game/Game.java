@@ -104,6 +104,17 @@ public class Game {
         this.limitBet = gameDto.getLimiteAposta();
     }
 
+    public void whoWon(){
+        if(this.terminou){
+            if(this.pontuacaoTimeHome > this.pontuacaoTimeAway)
+                this.resultBet = ResultEnum.GANHADOR_CASA;
+            else if(this.pontuacaoTimeHome < this.pontuacaoTimeAway)
+                this.resultBet = ResultEnum.GANHADOR_FORA;
+            else
+                this.resultBet = ResultEnum.EMPATE;
+        }
+    }
+
     public Long getId() {
         return id;
     }

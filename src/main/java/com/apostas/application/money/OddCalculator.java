@@ -1,10 +1,9 @@
 package com.apostas.application.money;
 
-import javax.enterprise.inject.spi.Bean;
-
-import com.apostas.application.dto.BetDto;
-import com.apostas.application.dto.GameDto;
-import com.apostas.infraestructure.jpa.JPAGameRepository;
+import com.apostas.domain.bet.Bet;
+import com.apostas.domain.enumutilities.ResultEnum;
+import com.apostas.domain.game.Game;
+import com.apostas.domain.user.User;
 
 public class OddCalculator {
     /*
@@ -15,9 +14,25 @@ public class OddCalculator {
         return new String(value + "%");
     }
 
-    public static double oddsMutiplier(BetDto bet) {
-        for (Long idGame : bet.getGames()) {
-            Game game = JPAGameRepository.get(idGame);
+    /*
+     * Multiplica todas as odds de uma aposta.
+     */
+    public static double multOdds(Bet bet, User user) {
+        double odd = 0;
+        for (Game game : bet.getGames()) {
+            ResultEnum gameResult = bet.getGameResult().get(bet.getGameResult().indexOf(game.getId())).getResult();
+            switch (gameResult) {
+                case EMPATE:
+                    odd *= game.getOddTie();
+                    break;
+                case GANHADOR_CASA:
+                    odd *= game.getOddTeamHome();
+                    break;
+                case GANHADOR_FORA:
+                    odd *= game.getOddTeamAway();
+                    break;
+            }
         }
+        return odd;
     }
 }

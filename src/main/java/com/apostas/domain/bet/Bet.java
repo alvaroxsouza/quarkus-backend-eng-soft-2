@@ -38,11 +38,13 @@ public class Bet {
             inverseJoinColumns = @JoinColumn(name = "game_id"))
     private List<Game> games;
 
+    private List<GameResult> gameResult;
+
     public Bet() {
 
     }
 
-    public Bet(Long id, List<Game> games, User user, boolean win, LocalDate created_at, LocalDate updated_at, LocalDate terminoAposta) {
+    public Bet(Long id, List<Game> games, User user, boolean win, LocalDate created_at, LocalDate updated_at, LocalDate terminoAposta, List<GameResult> gameResult) {
         this.id = id;
         this.games = games;
         this.user = user;
@@ -50,6 +52,7 @@ public class Bet {
         this.created_at = created_at;
         this.updated_at = updated_at;
         this.terminoAposta = terminoAposta;
+        this.gameResult = gameResult;
     }
 
     public Bet(BetDto betDto) {
@@ -61,6 +64,7 @@ public class Bet {
         this.created_at = betDto.getCreated_at();
         this.updated_at = betDto.getUpdated_at();
         this.terminoAposta = betDto.getTerminoAposta();
+        this.gameResult = betDto.getGameResult();
     }
 
     public void updateBet(BetDto betDto) {
@@ -72,6 +76,7 @@ public class Bet {
         this.created_at = betDto.getCreated_at();
         this.updated_at = betDto.getUpdated_at();
         this.terminoAposta = betDto.getTerminoAposta();
+        this.gameResult = betDto.getGameResult();
     }
 
     public Long getId() {
@@ -132,4 +137,22 @@ public class Bet {
     public void setGames(List<Game> games) {
         this.games = games;
     }
+
+    public String getMoneyBet() {
+        return moneyBet;
+    }
+
+    public void setMoneyBet(String moneyBet) {
+        this.moneyBet = moneyBet;
+    }
+
+    public List<GameResult> getGameResult() {
+        return gameResult;
+    }
+
+    public void setGameResult(List<GameResult> gameResult) {
+        this.gameResult = gameResult;
+    }
+
+    
 }

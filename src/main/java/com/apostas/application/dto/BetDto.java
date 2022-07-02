@@ -12,18 +12,19 @@ public class BetDto implements Serializable {
     @JsonIgnore
     private Long id;
     private List<Long> games;
-    private List<GameResult> apostas;
     private Long idUser;
     private boolean win;
     private String betValue;
+    private List<GameResult> apostas;
     private LocalDate created_at = LocalDate.now();
     private LocalDate updated_at;
     private LocalDate terminoAposta;
+    private List<GameResult> gameResult;
 
     public BetDto() {
     }
 
-    public BetDto(Long id, List<Long> games, Long idUser, boolean win, String betValue, LocalDate updated_at, LocalDate terminoAposta) {
+    public BetDto(Long id, List<Long> games, Long idUser, boolean win, String betValue, LocalDate updated_at, LocalDate terminoAposta, List<GameResult> gameResult) {
         this.id = id;
         this.games = games;
         this.idUser = idUser;
@@ -31,6 +32,7 @@ public class BetDto implements Serializable {
         this.betValue = betValue;
         this.updated_at = updated_at;
         this.terminoAposta = terminoAposta;
+        this.gameResult = gameResult;
     }
 
     public Long getId() {
@@ -89,12 +91,28 @@ public class BetDto implements Serializable {
         this.updated_at = updated_at;
     }
 
+    public List<GameResult> getApostas() {
+        return apostas;
+    }
+
+    public void setApostas(List<GameResult> apostas) {
+        this.apostas = apostas;
+    }
+
     public LocalDate getTerminoAposta() {
         return terminoAposta;
     }
 
     public void setTerminoAposta(LocalDate terminoAposta) {
         this.terminoAposta = terminoAposta;
+    }
+
+    public List<GameResult> getGameResult() {
+        return gameResult;
+    }
+
+    public void setGameResult(List<GameResult> gameResult) {
+        this.gameResult = gameResult;
     }
 
     @Override
