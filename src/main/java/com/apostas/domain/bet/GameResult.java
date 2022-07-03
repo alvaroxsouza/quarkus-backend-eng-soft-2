@@ -1,26 +1,72 @@
 package com.apostas.domain.bet;
 
+import com.apostas.application.dto.GameResultDto;
 import com.apostas.domain.enumutilities.ResultEnum;
+import com.apostas.domain.game.Game;
+import org.jetbrains.annotations.NotNull;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "bet_game_result")
 public class GameResult {
-    private Long game;
-    private ResultEnum result;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    private Long id;
 
-    public GameResult(Long game, ResultEnum result) {
-        this.game = game;
-        this.result = result;
+    @OneToOne
+    @JoinColumn(name = "game_id")
+    private Game game;
+
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "bet_id")
+    private Bet bet;
+
+    @Enumerated
+    private ResultEnum resultBet;
+
+    public GameResult(Bet bet, @NotNull GameResultDto gameResultDto) {
+        this.game = new Game(gameResultDto.getIdGame());
+        this.bet = bet;
+        this.resultBet = ResultEnum.valueOf(gameResultDto.getResultBet());
     }
-    public Long getGame() {
+
+    public Bet getBet() {
+        return bet;
+    }
+
+    public void setBet(Bet bet) {
+        this.bet = bet;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public GameResult(Game game, ResultEnum result) {
+        this.game = game;
+        this.resultBet = result;
+    }
+
+    public GameResult() {
+
+    }
+
+    public Game getGame() {
         return game;
     }
-    public void setGame(Long game) {
+    public void setGame(Game game) {
         this.game = game;
     }
     public ResultEnum getResult() {
-        return result;
+        return resultBet;
     }
-    public void setResult(ResultEnum result) {
-        this.result = result;
+    public void setResult(ResultEnum resultBet) {
+        this.resultBet = resultBet;
     }
-    
 }

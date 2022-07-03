@@ -1,0 +1,11 @@
+package com.apostas.infraestructure.panache;
+
+import com.apostas.domain.bet.GameResult;
+import com.apostas.domain.game.Game;
+import io.quarkus.hibernate.orm.panache.PanacheRepository;
+
+import javax.enterprise.context.ApplicationScoped;
+
+@ApplicationScoped
+public class PanacheGameResultRepository implements PanacheRepository<GameResult> {
+}

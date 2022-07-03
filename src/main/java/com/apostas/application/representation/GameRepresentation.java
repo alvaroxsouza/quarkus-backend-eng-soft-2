@@ -1,6 +1,6 @@
 package com.apostas.application.representation;
 
-import com.apostas.domain.enumutilities.CateryEnum;
+import com.apostas.domain.enumutilities.CategoryEnum;
 import com.apostas.domain.enumutilities.ResultEnum;
 import com.apostas.domain.game.Game;
 
@@ -17,7 +17,7 @@ public class GameRepresentation implements Serializable {
     private double oddTeamAway;
     private double oddTie;
     private String campeonato;
-    private CateryEnum cateryEnum;
+    private CategoryEnum cateryEnum;
     private LocalDate created_at;
     private LocalDate updated_at;
     private LocalDate limiteAposta;
@@ -38,8 +38,6 @@ public class GameRepresentation implements Serializable {
         this.campeonato = game.getCampeonato();
         this.created_at = game.getCreated_at();
         this.updated_at = game.getUpdated_at();
-        this.limiteAposta = game.getLimitBet();
-        this.dataTermino = game.getDataTermino();
     }
 
     public Long getId() {

@@ -1,5 +1,6 @@
 package com.apostas.application.dto;
 
+import com.apostas.application.representation.GameResultRepresentation;
 import com.apostas.domain.bet.GameResult;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -15,16 +16,15 @@ public class BetDto implements Serializable {
     private Long idUser;
     private boolean win;
     private String betValue;
-    private List<GameResult> apostas;
+    private List<GameResultDto> gameResultDtoList;
     private LocalDate created_at = LocalDate.now();
     private LocalDate updated_at;
     private LocalDate terminoAposta;
-    private List<GameResult> gameResult;
 
     public BetDto() {
     }
 
-    public BetDto(Long id, List<Long> games, Long idUser, boolean win, String betValue, LocalDate updated_at, LocalDate terminoAposta, List<GameResult> gameResult) {
+    public BetDto(Long id, List<Long> games, Long idUser, boolean win, String betValue, LocalDate updated_at, LocalDate terminoAposta) {
         this.id = id;
         this.games = games;
         this.idUser = idUser;
@@ -32,7 +32,6 @@ public class BetDto implements Serializable {
         this.betValue = betValue;
         this.updated_at = updated_at;
         this.terminoAposta = terminoAposta;
-        this.gameResult = gameResult;
     }
 
     public Long getId() {
@@ -91,12 +90,12 @@ public class BetDto implements Serializable {
         this.updated_at = updated_at;
     }
 
-    public List<GameResult> getApostas() {
-        return apostas;
+    public List<GameResultDto> getGameResultDtoList() {
+        return gameResultDtoList;
     }
 
-    public void setApostas(List<GameResult> apostas) {
-        this.apostas = apostas;
+    public void setGameResultDtoList(List<GameResultDto> gameResultDtoList) {
+        this.gameResultDtoList = gameResultDtoList;
     }
 
     public LocalDate getTerminoAposta() {
@@ -105,14 +104,6 @@ public class BetDto implements Serializable {
 
     public void setTerminoAposta(LocalDate terminoAposta) {
         this.terminoAposta = terminoAposta;
-    }
-
-    public List<GameResult> getGameResult() {
-        return gameResult;
-    }
-
-    public void setGameResult(List<GameResult> gameResult) {
-        this.gameResult = gameResult;
     }
 
     @Override

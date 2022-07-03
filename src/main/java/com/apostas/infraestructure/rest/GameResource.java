@@ -1,5 +1,6 @@
 package com.apostas.infraestructure.rest;
 
+import com.apostas.application.dto.ClosedGameDto;
 import com.apostas.application.dto.GameDto;
 import com.apostas.application.representation.GameRepresentation;
 import com.apostas.application.services.GameService;
@@ -46,6 +47,15 @@ public class GameResource {
         if(game != null) {
             this.gameService.addGame(game);
         }
+        return Response.ok().build();
+    }
+
+    @PATCH
+    @Path("closed/{id}")
+    @Transactional
+    @Operation(summary = "Fecha/Termina um jogo na base.")
+    public Response closeGame(@PathParam("id") Long id, ClosedGameDto closedGameDto) {
+        this.gameService.closedGame(id, closedGameDto);
         return Response.ok().build();
     }
 

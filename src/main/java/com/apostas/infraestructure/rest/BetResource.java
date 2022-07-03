@@ -55,6 +55,15 @@ public class BetResource {
         return Response.ok().build();
     }
 
+    @PATCH
+    @Path("award/{id}")
+    @Transactional
+    @Operation(summary = "Solicita a premiação de uma aposta ganha pelo usuário.")
+    public Response awardBet(@PathParam("id") Long idBet) {
+        this.betService.awardBet(idBet);
+        return Response.ok().build();
+    }
+
     @DELETE
     @Path("{id}")
     @Transactional

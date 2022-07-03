@@ -36,8 +36,6 @@ public class GameDtoTest {
         gameDto.setCampeonato(campeonato);
         gameDto.setCreated_at(createdDate);
         gameDto.setUpdated_at(updatedDate);
-        gameDto.setLimiteAposta(limitDate);
-        gameDto.setDataTermino(endDate);
 
         assertTrue(gameDto.equals(gameDto));
     }
@@ -70,8 +68,6 @@ public class GameDtoTest {
         gameDto1.setCampeonato(campeonato);
         gameDto1.setCreated_at(createdDate);
         gameDto1.setUpdated_at(updatedDate);
-        gameDto1.setLimiteAposta(limitDate);
-        gameDto1.setDataTermino(endDate);
 
         gameDto2.setId(gameId);
         gameDto2.setIdTeamHome(idTeamHome);
@@ -83,8 +79,6 @@ public class GameDtoTest {
         gameDto2.setCampeonato(campeonato);
         gameDto2.setCreated_at(createdDate);
         gameDto2.setUpdated_at(updatedDate);
-        gameDto2.setLimiteAposta(limitDate);
-        gameDto2.setDataTermino(endDate);
 
         assertTrue(gameDto1.equals(gameDto2));
         assertTrue(gameDto2.equals(gameDto1));
@@ -119,8 +113,6 @@ public class GameDtoTest {
         gameDto1.setCampeonato(campeonato);
         gameDto1.setCreated_at(createdDate);
         gameDto1.setUpdated_at(updatedDate);
-        gameDto1.setLimiteAposta(limitDate);
-        gameDto1.setDataTermino(endDate);
 
         gameDto2.setId(gameId);
         gameDto2.setIdTeamHome(idTeamHome);
@@ -132,8 +124,6 @@ public class GameDtoTest {
         gameDto2.setCampeonato(campeonato);
         gameDto2.setCreated_at(createdDate);
         gameDto2.setUpdated_at(updatedDate);
-        gameDto2.setLimiteAposta(limitDate);
-        gameDto2.setDataTermino(endDate);
 
         assertFalse(gameDto1.equals(gameDto2));
         assertFalse(gameDto2.equals(gameDto1));
@@ -170,8 +160,6 @@ public class GameDtoTest {
         gameDto1.setCampeonato(campeonato);
         gameDto1.setCreated_at(createdDate);
         gameDto1.setUpdated_at(updatedDate1);
-        gameDto1.setLimiteAposta(limitDate);
-        gameDto1.setDataTermino(endDate);
 
         gameDto2.setId(gameId);
         gameDto2.setIdTeamHome(idTeamHome);
@@ -183,9 +171,6 @@ public class GameDtoTest {
         gameDto2.setCampeonato(campeonato);
         gameDto2.setCreated_at(createdDate);
         gameDto2.setUpdated_at(updatedDate2);
-        gameDto2.setLimiteAposta(limitDate);
-        gameDto2.setDataTermino(endDate);
-
         assertFalse(gameDto1.equals(gameDto2));
         assertFalse(gameDto2.equals(gameDto1));
     }
@@ -217,8 +202,6 @@ public class GameDtoTest {
         gameDto.setCampeonato(campeonato);
         gameDto.setCreated_at(createdDate);
         gameDto.setUpdated_at(updatedDate);
-        gameDto.setLimiteAposta(limitDate);
-        gameDto.setDataTermino(endDate);
 
         BetDto betDto = new BetDto();
 

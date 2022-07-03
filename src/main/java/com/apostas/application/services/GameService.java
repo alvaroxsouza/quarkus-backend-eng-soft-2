@@ -1,5 +1,6 @@
 package com.apostas.application.services;
 
+import com.apostas.application.dto.ClosedGameDto;
 import com.apostas.application.dto.GameDto;
 import com.apostas.application.representation.GameRepresentation;
 import com.apostas.domain.game.Game;
@@ -42,5 +43,11 @@ public class GameService {
     public GameRepresentation getGameById(Long id) {
         Game game = this.gameRepository.get(id);
         return new GameRepresentation(game);
+    }
+
+    public void closedGame(Long id, ClosedGameDto closedGameDto) {
+        Game game = this.gameRepository.get(id);
+
+        game.closedGame(closedGameDto);
     }
 }

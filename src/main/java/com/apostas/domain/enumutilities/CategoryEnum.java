@@ -1,6 +1,6 @@
 package com.apostas.domain.enumutilities;
 
-public enum CateryEnum {
+public enum CategoryEnum {
 
     FUTEBOL("Futebol"),
     VOLEI("Vôlei"),
@@ -18,7 +18,7 @@ public enum CateryEnum {
 
     private final String value;
 
-    CateryEnum(String value) {
+    CategoryEnum(String value) {
         this.value = value;
     }
 

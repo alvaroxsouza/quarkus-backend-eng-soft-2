@@ -1,6 +1,7 @@
 package com.apostas.domain.bet;
 
 import com.apostas.application.dto.BetDto;
+import com.apostas.application.money.OddCalculator;
 import com.apostas.domain.game.Game;
 import com.apostas.domain.user.User;
 
@@ -22,14 +23,16 @@ public class Bet {
     @JoinColumn(name = "user_id")
     private User user;
 
-    private boolean win;
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "game_result_id")
+    private List<GameResult> gameResult;
 
+    private boolean win;
     private String moneyBet;
+    private String moneyIfWin;
 
     private LocalDate created_at = LocalDate.now();
-
     private LocalDate updated_at;
-
     private LocalDate terminoAposta;
 
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
@@ -38,10 +41,12 @@ public class Bet {
             inverseJoinColumns = @JoinColumn(name = "game_id"))
     private List<Game> games;
 
-    private List<GameResult> gameResult;
-
     public Bet() {
 
+    }
+
+    public Bet(Long id) {
+        this.id = id;
     }
 
     public Bet(Long id, List<Game> games, User user, boolean win, LocalDate created_at, LocalDate updated_at, LocalDate terminoAposta, List<GameResult> gameResult) {
@@ -53,6 +58,14 @@ public class Bet {
         this.updated_at = updated_at;
         this.terminoAposta = terminoAposta;
         this.gameResult = gameResult;
+        this.moneyIfWin = this.calculateMoneyIfWin();
+    }
+
+    private String calculateMoneyIfWin() {
+        String totalMoney = "BRL 0.00";
+        double oddFinal = OddCalculator.multOdds(this);
+//        totalMoney = MoneyOperation.addMoney(totalMoney, );
+        return totalMoney;
     }
 
     public Bet(BetDto betDto) {
@@ -61,22 +74,20 @@ public class Bet {
         this.user = new User(betDto.getIdUser());
         this.moneyBet = betDto.getBetValue();
         this.games = betDto.getGames().stream().map(Game::new).collect(Collectors.toList());
+        this.gameResult = betDto.getGameResultDtoList().stream().map(gameResultDto -> new GameResult(this, gameResultDto)).collect(Collectors.toList());
         this.created_at = betDto.getCreated_at();
         this.updated_at = betDto.getUpdated_at();
         this.terminoAposta = betDto.getTerminoAposta();
-        this.gameResult = betDto.getGameResult();
     }
 
     public void updateBet(BetDto betDto) {
         this.id = betDto.getId();
         this.games = betDto.getGames().stream().map(Game::new).collect(Collectors.toList());
         this.user = new User(betDto.getIdUser());
-        this.user = new User(betDto.getId());
         this.win = betDto.isWin();
         this.created_at = betDto.getCreated_at();
         this.updated_at = betDto.getUpdated_at();
         this.terminoAposta = betDto.getTerminoAposta();
-        this.gameResult = betDto.getGameResult();
     }
 
     public Long getId() {
@@ -128,7 +139,7 @@ public class Bet {
     }
 
     public List<Game> getGames() {
-        if(this.games == null) {
+        if (this.games == null) {
             this.games = new ArrayList<>();
         }
         return games;
@@ -146,6 +157,14 @@ public class Bet {
         this.moneyBet = moneyBet;
     }
 
+    public String getMoneyIfWin() {
+        return moneyIfWin;
+    }
+
+    public void setMoneyIfWin(String moneyIfWin) {
+        this.moneyIfWin = moneyIfWin;
+    }
+
     public List<GameResult> getGameResult() {
         return gameResult;
     }
@@ -154,5 +173,4 @@ public class Bet {
         this.gameResult = gameResult;
     }
 
-    
 }

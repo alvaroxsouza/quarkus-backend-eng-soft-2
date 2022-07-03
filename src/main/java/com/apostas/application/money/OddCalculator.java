@@ -17,8 +17,9 @@ public class OddCalculator {
     /*
      * Multiplica todas as odds de uma aposta.
      */
-    public static double multOdds(Bet bet, User user) {
-        double odd = 0;
+    public static double multOdds(Bet bet) {
+//        Começa de 1 porque é elemento neutro da multiplicação
+        double odd = 1;
         for (Game game : bet.getGames()) {
             ResultEnum gameResult = bet.getGameResult().get(bet.getGameResult().indexOf(game.getId())).getResult();
             switch (gameResult) {

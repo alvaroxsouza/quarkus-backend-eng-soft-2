@@ -5,10 +5,12 @@ import com.apostas.application.money.MoneyOperation;
 import com.apostas.application.money.OddCalculator;
 import com.apostas.application.representation.BetRepresentation;
 import com.apostas.domain.bet.Bet;
+import com.apostas.domain.bet.GameResult;
 import com.apostas.domain.enumutilities.ResultEnum;
 import com.apostas.domain.game.Game;
 import com.apostas.domain.repository.BetRepository;
 import com.apostas.domain.repository.GameRepository;
+import com.apostas.domain.repository.GameResultRepository;
 import com.apostas.domain.repository.UserRepository;
 import com.apostas.domain.user.User;
 
@@ -24,13 +26,15 @@ public class BetService {
     private BetRepository betRepository;
     private UserRepository userRepository;
     private GameRepository gameRepository;
+    private GameResultRepository gameResultRepository;
 
     @Inject
-    public BetService(BetRepository betRepository, UserRepository userRepository, GameRepository gameRepository) {
+    public BetService(BetRepository betRepository, UserRepository userRepository, GameRepository gameRepository, GameResultRepository gameResultRepository) {
         super();
         this.betRepository = betRepository;
         this.userRepository = userRepository;
         this.gameRepository = gameRepository;
+        this.gameResultRepository = gameResultRepository;
     }
 
     public List<BetRepresentation> getAllBets() {
@@ -44,7 +48,6 @@ public class BetService {
             User user = this.userRepository.get(betDto.getIdUser());
             String newMoney = MoneyOperation.subMoney(user.getDinheiroDisponivel(), betDto.getBetValue());
             user.setDinheiroDisponivel(newMoney);
-
         }
     }
 
@@ -72,27 +75,28 @@ public class BetService {
         return gameList;
     }
 
-    public void addBetInUser(BetDto betDto) {
-
+    public void awardBet(Long idBet) {
+        Bet bet = this.betRepository.get(idBet);
+        System.out.println(bet.getUser().toString());
     }
 
     /*
      * Retorna o quanto usuário ganhou na aposta e faz o set do dinheiro atual do usuário.
      * Parte do pressuposto que todos os jogos terminaram.
      */
-    public String resultGain(BetDto betDto) {
-        Bet bet = this.betRepository.get(betDto.getId());
-        User user = this.userRepository.get(betDto.getIdUser());
-        for (Game game : bet.getGames()) {
-            game.whoWon();
-            ResultEnum gameResult = bet.getGameResult().get(bet.getGameResult().indexOf(game.getId())).getResult();
-            if(!game.getResultBet().equals(gameResult)){
-                return new String("Perdeu!");
-            }
-        }
-        double multOdd = OddCalculator.multOdds(bet, user);
-        String newMoney = MoneyOperation.mulMoney(bet.getMoneyBet(), multOdd);
-        user.setDinheiroDisponivel(MoneyOperation.addMoney(user.getDinheiroDisponivel(), newMoney));
-        return newMoney;
-    }
+//    public String resultGain(BetDto betDto) {
+//        Bet bet = this.betRepository.get(betDto.getId());
+//        User user = this.userRepository.get(betDto.getIdUser());
+//        for (Game game : bet.getGames()) {
+////            game.whoWon();
+//            ResultEnum gameResult = bet.getGameResult().get(bet.getGameResult().indexOf(game.getId())).getResult();
+//            if(!game.getResultBet().equals(gameResult)){
+//                return new String("Perdeu!");
+//            }
+//        }
+//        double multOdd = OddCalculator.multOdds(bet, user);
+//        String newMoney = MoneyOperation.mulMoney(bet.getMoneyBet(), multOdd);
+//        user.setDinheiroDisponivel(MoneyOperation.addMoney(user.getDinheiroDisponivel(), newMoney));
+//        return newMoney;
+//    }
 }

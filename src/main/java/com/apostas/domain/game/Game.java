@@ -1,9 +1,11 @@
 package com.apostas.domain.game;
 
+import com.apostas.application.dto.ClosedGameDto;
 import com.apostas.application.dto.GameDto;
 import com.apostas.domain.bet.Bet;
-import com.apostas.domain.enumutilities.CateryEnum;
+import com.apostas.domain.enumutilities.CategoryEnum;
 import com.apostas.domain.enumutilities.ResultEnum;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -33,17 +35,17 @@ public class Game {
     private double oddTeamAway;
     private double oddTie;
     private String campeonato;
-    private CateryEnum category;
 
+    @Enumerated
+    private CategoryEnum category;
+
+    @CreationTimestamp
     private LocalDate created_at = LocalDate.now();
+    @CreationTimestamp
     private LocalDate updated_at;
 
-    private LocalDate limitBet;
-
     private boolean terminou;
-
     private Integer pontuacaoTimeHome;
-
     private Integer pontuacaoTimeAway;
 
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
@@ -51,7 +53,6 @@ public class Game {
             joinColumns = @JoinColumn(name = "game_id"),
             inverseJoinColumns = @JoinColumn(name = "betlist_id"))
     private List<Bet> bets;
-
 
     public Game() {
     }
@@ -61,7 +62,6 @@ public class Game {
     }
 
     public Game(Long id, Team teamHome, Team teamAway, ResultEnum resultBet, double oddRivalHome, double oddRivalAway, double oddTie, String campeonato, LocalDate created_at, LocalDate updated_at, LocalDate limiteAposta) {
-
         this.id = id;
         this.teamHome = teamHome;
         this.teamAway = teamAway;
@@ -72,8 +72,6 @@ public class Game {
         this.campeonato = campeonato;
         this.created_at = created_at;
         this.updated_at = updated_at;
-        this.limitBet = limiteAposta;
-
     }
 
     public Game(GameDto gameDto) {
@@ -84,27 +82,34 @@ public class Game {
         this.oddTeamHome = gameDto.getOddTeamHome();
         this.oddTeamAway = gameDto.getOddTeamAway();
         this.oddTie = gameDto.getOddTie();
-        this.category = CateryEnum.valueOf(gameDto.getCategory());
+        this.category = gameDto.getCategory();
         this.campeonato = gameDto.getCampeonato();
         this.created_at = gameDto.getCreated_at();
         this.updated_at = gameDto.getUpdated_at();
-        this.limitBet = gameDto.getLimiteAposta();
     }
 
     public void updateGame(GameDto gameDto) {
         this.id = gameDto.getId();
         this.teamAway = new Team(gameDto.getIdTeamAway());
         this.teamHome = new Team(gameDto.getIdTeamHome());
+        this.pontuacaoTimeHome = gameDto.getPontuacaoTimeHome();
+        this.pontuacaoTimeAway = gameDto.getPontuacaoTimeAway();
         this.resultBet = gameDto.getResultBet();
         this.oddTeamHome = gameDto.getOddTeamHome();
         this.oddTeamAway = gameDto.getOddTeamAway();
         this.oddTie = gameDto.getOddTie();
         this.campeonato = gameDto.getCampeonato();
         this.updated_at = LocalDate.now();
-        this.limitBet = gameDto.getLimiteAposta();
     }
 
-    public void whoWon(){
+    public void closedGame(ClosedGameDto closedGameDto) {
+        this.pontuacaoTimeHome = closedGameDto.getPontuacaoTimeHome();
+        this.pontuacaoTimeAway = closedGameDto.getPontuacaoTimeAway();
+        this.terminou = true;
+        this.whoWon();
+    }
+
+    private void whoWon(){
         if(this.terminou){
             if(this.pontuacaoTimeHome > this.pontuacaoTimeAway)
                 this.resultBet = ResultEnum.GANHADOR_CASA;
@@ -175,11 +180,11 @@ public class Game {
         return campeonato;
     }
 
-    public CateryEnum getCategory() {
+    public CategoryEnum getCategory() {
         return category;
     }
 
-    public void setCategory(CateryEnum category) {
+    public void setCategory(CategoryEnum category) {
         this.category = category;
     }
 
@@ -201,14 +206,6 @@ public class Game {
 
     public void setUpdated_at(LocalDate updated_at) {
         this.updated_at = updated_at;
-    }
-
-    public LocalDate getLimitBet() {
-        return limitBet;
-    }
-
-    public void setLimitBet(LocalDate limiteAposta) {
-        this.limitBet = limiteAposta;
     }
 
     public List<Bet> getBets() {
@@ -242,5 +239,4 @@ public class Game {
     public void setTerminou(boolean terminou) {
         this.terminou = terminou;
     }
-    
 }
