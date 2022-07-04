@@ -1,7 +1,5 @@
 package com.apostas.application.dto;
 
-import com.apostas.domain.enumutilities.ResultEnum;
-
 import java.io.Serializable;
 import java.util.Objects;
 

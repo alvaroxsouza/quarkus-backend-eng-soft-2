@@ -1,10 +1,8 @@
 package com.apostas.infraestructure.jpa;
 
 import com.apostas.domain.bet.GameResult;
-import com.apostas.domain.game.Team;
 import com.apostas.domain.repository.GameResultRepository;
 import com.apostas.infraestructure.panache.PanacheGameResultRepository;
-import com.apostas.infraestructure.panache.PanacheTeamRepository;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -42,5 +40,10 @@ public class JPAGameResultRepository implements GameResultRepository {
     @Override
     public List<GameResult> all() {
         return this.panacheGameResultRepository.listAll();
+    }
+
+    @Override
+    public List<GameResult> getByGameResult(Long id) {
+        return this.panacheGameResultRepository.getByGameResult(id);
     }
 }

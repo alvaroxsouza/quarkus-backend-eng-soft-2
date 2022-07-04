@@ -5,12 +5,14 @@ import com.apostas.application.dto.GameDto;
 import com.apostas.domain.bet.Bet;
 import com.apostas.domain.enumutilities.CategoryEnum;
 import com.apostas.domain.enumutilities.ResultEnum;
+import com.apostas.domain.user.User;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "game")
@@ -36,7 +38,7 @@ public class Game {
     private double oddTie;
     private String campeonato;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private CategoryEnum category;
 
     @CreationTimestamp
@@ -61,13 +63,13 @@ public class Game {
         this.id = id;
     }
 
-    public Game(Long id, Team teamHome, Team teamAway, ResultEnum resultBet, double oddRivalHome, double oddRivalAway, double oddTie, String campeonato, LocalDate created_at, LocalDate updated_at, LocalDate limiteAposta) {
+    public Game(Long id, Team teamHome, Team teamAway, ResultEnum resultBet, double oddTeamHome, double oddTeamAway, double oddTie, String campeonato, LocalDate created_at, LocalDate updated_at, LocalDate limiteAposta) {
         this.id = id;
         this.teamHome = teamHome;
         this.teamAway = teamAway;
         this.resultBet = resultBet;
-        this.oddTeamHome = oddRivalHome;
-        this.oddTeamAway = oddRivalAway;
+        this.oddTeamHome = oddTeamHome;
+        this.oddTeamAway = oddTeamAway;
         this.oddTie = oddTie;
         this.campeonato = campeonato;
         this.created_at = created_at;
@@ -238,5 +240,18 @@ public class Game {
 
     public void setTerminou(boolean terminou) {
         this.terminou = terminou;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Game)) return false;
+        Game game = (Game) o;
+        return Double.compare(game.getOddTeamHome(), getOddTeamHome()) == 0 && Double.compare(game.getOddTeamAway(), getOddTeamAway()) == 0 && Double.compare(game.getOddTie(), getOddTie()) == 0 && isTerminou() == game.isTerminou() && Objects.equals(getId(), game.getId()) && Objects.equals(getTeamHome(), game.getTeamHome()) && Objects.equals(getTeamAway(), game.getTeamAway()) && getResultBet() == game.getResultBet() && Objects.equals(getCampeonato(), game.getCampeonato()) && getCategory() == game.getCategory() && Objects.equals(getCreated_at(), game.getCreated_at()) && Objects.equals(getUpdated_at(), game.getUpdated_at()) && Objects.equals(getPontuacaoTimeHome(), game.getPontuacaoTimeHome()) && Objects.equals(getPontuacaoTimeAway(), game.getPontuacaoTimeAway()) && Objects.equals(getBets(), game.getBets());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getTeamHome(), getTeamAway(), getResultBet(), getOddTeamHome(), getOddTeamAway(), getOddTie(), getCampeonato(), getCategory(), getCreated_at(), getUpdated_at(), isTerminou(), getPontuacaoTimeHome(), getPontuacaoTimeAway(), getBets());
     }
 }

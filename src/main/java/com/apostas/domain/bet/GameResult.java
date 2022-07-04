@@ -23,8 +23,16 @@ public class GameResult {
     @JoinColumn(name = "bet_id")
     private Bet bet;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private ResultEnum resultBet;
+
+    public GameResult() {
+
+    }
+
+    public GameResult(Long id) {
+        this.id = id;
+    }
 
     public GameResult(Bet bet, @NotNull GameResultDto gameResultDto) {
         this.game = new Game(gameResultDto.getIdGame());
@@ -46,15 +54,6 @@ public class GameResult {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public GameResult(Game game, ResultEnum result) {
-        this.game = game;
-        this.resultBet = result;
-    }
-
-    public GameResult() {
-
     }
 
     public Game getGame() {

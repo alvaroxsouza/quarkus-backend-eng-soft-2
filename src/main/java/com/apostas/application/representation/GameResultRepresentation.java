@@ -1,10 +1,6 @@
 package com.apostas.application.representation;
 
-import com.apostas.domain.bet.Bet;
 import com.apostas.domain.enumutilities.ResultEnum;
-import com.apostas.domain.game.Game;
-
-import javax.persistence.*;
 
 public class GameResultRepresentation {
     private Long id;

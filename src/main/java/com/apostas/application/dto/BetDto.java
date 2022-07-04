@@ -1,7 +1,5 @@
 package com.apostas.application.dto;
 
-import com.apostas.application.representation.GameResultRepresentation;
-import com.apostas.domain.bet.GameResult;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.io.Serializable;

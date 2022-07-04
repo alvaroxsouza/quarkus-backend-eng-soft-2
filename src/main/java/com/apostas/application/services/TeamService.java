@@ -13,34 +13,34 @@ import java.util.stream.Collectors;
 @Singleton
 public class TeamService {
 
-    private TeamRepository rivalRepository;
+    private TeamRepository teamRepository;
 
     @Inject
-    public TeamService(TeamRepository rivalRepository) {
+    public TeamService(TeamRepository teamRepository) {
         super();
-        this.rivalRepository = rivalRepository;
+        this.teamRepository = teamRepository;
     }
 
     public List<TeamRepresentation> getAllTeams() {
-        return this.rivalRepository.all().stream().map(TeamRepresentation::new).collect(Collectors.toList());
+        return this.teamRepository.all().stream().map(TeamRepresentation::new).collect(Collectors.toList());
     }
 
     public void addTeam(Team time) {
-        this.rivalRepository.add(time);
+        this.teamRepository.add(time);
     }
 
-    public void updateTeam(TeamDto rivalDto) {
-        Team time = this.rivalRepository.get(rivalDto.getId());
-        time.updateTeam(rivalDto);
+    public void updateTeam(TeamDto teamDto) {
+        Team team = this.teamRepository.get(teamDto.getId());
+        team.updateTeam(teamDto);
     }
 
     public void deleteTeam(Long id) {
-        Team time = this.rivalRepository.get(id);
-        this.rivalRepository.remove(time);
+        Team team = this.teamRepository.get(id);
+        this.teamRepository.remove(team);
     }
 
     public TeamRepresentation getTeamById(Long id) {
-        Team time = this.rivalRepository.get(id);
-        return new TeamRepresentation(time);
+        Team team = this.teamRepository.get(id);
+        return new TeamRepresentation(team);
     }
 }

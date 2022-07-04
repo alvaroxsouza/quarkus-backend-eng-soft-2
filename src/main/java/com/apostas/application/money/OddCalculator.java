@@ -3,7 +3,6 @@ package com.apostas.application.money;
 import com.apostas.domain.bet.Bet;
 import com.apostas.domain.enumutilities.ResultEnum;
 import com.apostas.domain.game.Game;
-import com.apostas.domain.user.User;
 
 public class OddCalculator {
     /*

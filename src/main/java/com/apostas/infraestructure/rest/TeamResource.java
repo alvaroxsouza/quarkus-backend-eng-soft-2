@@ -41,8 +41,8 @@ public class TeamResource {
     @POST
     @Transactional
     @Operation(summary = "Adiciona um time/concorrente na base.")
-    public Response addTeam(TeamDto rivalDto) {
-        Team time = new Team(rivalDto);
+    public Response addTeam(TeamDto teamDto) {
+        Team time = new Team(teamDto);
         if(time != null) {
             this.teamService.addTeam(time);
         }
@@ -53,9 +53,9 @@ public class TeamResource {
     @Path("{id}")
     @Transactional
     @Operation(summary = "Atualiza um time/concorrente na base.")
-    public Response updateTeam(@PathParam("id") Long id, TeamDto rivalDto) {
-        rivalDto.setId(id);
-        this.teamService.updateTeam(rivalDto);
+    public Response updateTeam(@PathParam("id") Long id, TeamDto teamDto) {
+        teamDto.setId(id);
+        this.teamService.updateTeam(teamDto);
         return Response.ok().build();
     }
 

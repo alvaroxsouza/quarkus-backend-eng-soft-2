@@ -1,5 +1,8 @@
 package com.apostas.domain.enumutilities;
 
+import com.apostas.domain.bet.GameResult;
+import com.apostas.domain.user.User;
+
 public enum CategoryEnum {
 
     FUTEBOL("Futebol"),

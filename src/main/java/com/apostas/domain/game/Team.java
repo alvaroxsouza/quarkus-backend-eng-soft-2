@@ -5,7 +5,7 @@ import com.apostas.application.dto.TeamDto;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "rival")
+@Table(name = "team")
 public class Team {
 
     @Id
@@ -26,10 +26,10 @@ public class Team {
         this.paisDeOrigem = paisDeOrigem;
     }
 
-    public Team(TeamDto rivalDto) {
-        this.id = rivalDto.getId();
-        this.nomeTime = rivalDto.getNomeTeam();
-        this.paisDeOrigem = rivalDto.getPaisDeOrigem();
+    public Team(TeamDto teamDto) {
+        this.id = teamDto.getId();
+        this.nomeTime = teamDto.getNomeTeam();
+        this.paisDeOrigem = teamDto.getPaisDeOrigem();
     }
 
     public Team(Long idTeam) {
