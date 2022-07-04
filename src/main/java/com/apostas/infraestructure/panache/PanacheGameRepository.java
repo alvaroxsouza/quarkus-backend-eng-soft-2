@@ -1,5 +1,6 @@
 package com.apostas.infraestructure.panache;
 
+import com.apostas.domain.enumutilities.CategoryEnum;
 import com.apostas.domain.game.Game;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 
@@ -9,6 +10,7 @@ import java.util.List;
 @ApplicationScoped
 public class PanacheGameRepository implements PanacheRepository<Game>  {
     public List<Game> getByCatogory(String categoria) {
-        return this.find("category", categoria).list();
+        var enumValue = CategoryEnum.valueOf(categoria);
+        return this.find("category", enumValue).list();
     }
 }
