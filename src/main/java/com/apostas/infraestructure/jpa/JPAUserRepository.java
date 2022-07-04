@@ -1,8 +1,8 @@
 package com.apostas.infraestructure.jpa;
 
-import com.apostas.infraestructure.panache.PanacheUserRepository;
 import com.apostas.domain.repository.UserRepository;
 import com.apostas.domain.user.User;
+import com.apostas.infraestructure.panache.PanacheUserRepository;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;

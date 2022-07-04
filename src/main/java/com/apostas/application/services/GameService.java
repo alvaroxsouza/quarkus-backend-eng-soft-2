@@ -1,8 +1,8 @@
 package com.apostas.application.services;
 
+import com.apostas.application.dto.ClosedGameDto;
 import com.apostas.application.dto.GameDto;
 import com.apostas.application.representation.GameRepresentation;
-import com.apostas.application.dto.ClosedGameDto;
 import com.apostas.domain.game.Game;
 import com.apostas.domain.repository.GameRepository;
 
