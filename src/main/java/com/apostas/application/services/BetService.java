@@ -42,11 +42,16 @@ public class BetService {
 
     public void addBet(BetDto betDto) {
         Bet bet = new Bet(betDto);
+        bet.setMoneyIfWin(calculateMoneyIfWin(bet));
         if(bet != null) {
             this.betRepository.add(bet);
             User user = this.userRepository.get(betDto.getIdUser());
-            String newMoney = MoneyOperation.subMoney(user.getDinheiroDisponivel(), betDto.getBetValue());
-            user.setDinheiroDisponivel(newMoney);
+            if(MoneyOperation.biggerThenOrEqual(user.getDinheiroDisponivel(), bet.getMoneyBet())) {
+                String newMoney = MoneyOperation.subMoney(user.getDinheiroDisponivel(), bet.getMoneyBet());
+                user.setDinheiroDisponivel(newMoney);
+            } else {
+                throw new BetBussinessExceptions("dinheiro-insuficiente");
+            }
         }
     }
 
@@ -112,23 +117,32 @@ public class BetService {
         return true;
     }
 
-    /*
-     * Retorna o quanto usuário ganhou na aposta e faz o set do dinheiro atual do usuário.
-     * Parte do pressuposto que todos os jogos terminaram.
-     */
-//    public String resultGain(BetDto betDto) {
-//        Bet bet = this.betRepository.get(betDto.getId());
-//        User user = this.userRepository.get(betDto.getIdUser());
-//        for (Game game : bet.getGames()) {
-////            game.whoWon();
-//            ResultEnum gameResult = bet.getGameResult().get(bet.getGameResult().indexOf(game.getId())).getResult();
-//            if(!game.getResultBet().equals(gameResult)){
-//                return new String("Perdeu!");
-//            }
-//        }
-//        double multOdd = OddCalculator.multOdds(bet, user);
-//        String newMoney = MoneyOperation.mulMoney(bet.getMoneyBet(), multOdd);
-//        user.setDinheiroDisponivel(MoneyOperation.addMoney(user.getDinheiroDisponivel(), newMoney));
-//        return newMoney;
-//    }
+    private String calculateMoneyIfWin(Bet bet) {
+        String money = "";
+        double oddTotal = 1.0;
+        for (Game game : bet.getGames()) {
+            oddTotal = calculateOddTotal(bet, oddTotal, game);
+        }
+        money = MoneyOperation.mulMoney(bet.getMoneyIfWin(), oddTotal);
+        return money;
+    }
+
+    private double calculateOddTotal(Bet bet, double oddTotal, Game game) {
+        for(GameResult result : bet.getGameResult()) {
+            if(game.equals(result.getGame())) {
+                switch (result.getResult()) {
+                    case GANHADOR_CASA:
+                        oddTotal *= game.getOddTeamHome();
+                        break;
+                    case GANHADOR_FORA:
+                        oddTotal *= game.getOddTeamAway();
+                        break;
+                    case EMPATE:
+                        oddTotal *= game.getOddTie();
+                        break;
+                }
+            }
+        }
+        return oddTotal;
+    }
 }
