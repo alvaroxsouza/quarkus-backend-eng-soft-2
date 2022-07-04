@@ -5,7 +5,6 @@ import com.apostas.application.dto.GameDto;
 import com.apostas.domain.bet.Bet;
 import com.apostas.domain.enumutilities.CategoryEnum;
 import com.apostas.domain.enumutilities.ResultEnum;
-import com.apostas.domain.user.User;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;

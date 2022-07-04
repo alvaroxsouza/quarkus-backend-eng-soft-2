@@ -1,8 +1,8 @@
 package com.apostas.infraestructure.jpa;
 
 import com.apostas.domain.game.Team;
-import com.apostas.domain.repository.TeamRepository;
 import com.apostas.infraestructure.panache.PanacheTeamRepository;
+import com.apostas.domain.repository.TeamRepository;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;

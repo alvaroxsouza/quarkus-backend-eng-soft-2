@@ -1,10 +1,10 @@
 package com.apostas.application.services;
 
+import com.apostas.application.representation.UserRepresentation;
 import com.apostas.application.dto.FoundMoneyDto;
 import com.apostas.application.dto.LoginDto;
 import com.apostas.application.dto.UserDto;
 import com.apostas.application.money.MoneyOperation;
-import com.apostas.application.representation.UserRepresentation;
 import com.apostas.domain.repository.UserRepository;
 import com.apostas.domain.user.User;
 import com.apostas.infraestructure.exception.BetBussinessExceptions;

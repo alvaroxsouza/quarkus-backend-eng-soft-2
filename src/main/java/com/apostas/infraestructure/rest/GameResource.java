@@ -39,6 +39,13 @@ public class GameResource {
         return this.gameService.getGameById(id);
     }
 
+    @GET
+    @Path("{categoria}")
+    @Operation(summary = "Obtém um jogo pelo seu ID na base.")
+    public List<GameRepresentation> getGameById(@PathParam("categoria") String categoria) {
+        return this.gameService.getGameByCategoria(categoria);
+    }
+
     @POST
     @Transactional
     @Operation(summary = "Adiciona um jogo na base.")

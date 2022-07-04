@@ -1,8 +1,8 @@
 package com.apostas.infraestructure.jpa;
 
 import com.apostas.domain.bet.Bet;
-import com.apostas.domain.repository.BetRepository;
 import com.apostas.infraestructure.panache.PanacheBetRepository;
+import com.apostas.domain.repository.BetRepository;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;

@@ -1,8 +1,8 @@
 package com.apostas.infraestructure.jpa;
 
 import com.apostas.domain.game.Game;
-import com.apostas.domain.repository.GameRepository;
 import com.apostas.infraestructure.panache.PanacheGameRepository;
+import com.apostas.domain.repository.GameRepository;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -40,5 +40,10 @@ public class JPAGameRepository implements GameRepository {
     @Override
     public List<Game> all() {
         return this.panacheGameRepository.listAll();
+    }
+
+    @Override
+    public List<Game> getByCatorgory(String categoria) {
+        return this.panacheGameRepository.getByCatogory(categoria);
     }
 }

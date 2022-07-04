@@ -1,8 +1,8 @@
 package com.apostas.application.services;
 
-import com.apostas.application.dto.ClosedGameDto;
 import com.apostas.application.dto.GameDto;
 import com.apostas.application.representation.GameRepresentation;
+import com.apostas.application.dto.ClosedGameDto;
 import com.apostas.domain.game.Game;
 import com.apostas.domain.repository.GameRepository;
 
@@ -49,5 +49,13 @@ public class GameService {
         Game game = this.gameRepository.get(id);
 
         game.closedGame(closedGameDto);
+    }
+
+    public List<GameRepresentation> getGameByCategoria(String categoria) {
+        List<Game> gameListCategoria = this.gameRepository.getByCatorgory(categoria);
+
+        List<GameRepresentation> gameRepresentationList = gameListCategoria.stream().map(GameRepresentation::new).collect(Collectors.toList());
+
+        return gameRepresentationList;
     }
 }
